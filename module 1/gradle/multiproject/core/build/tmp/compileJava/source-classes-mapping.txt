@@ -1,2 +1,2 @@
-multiproject/Utils.java
- multiproject.Utils
+by/mjc/utils/Utils.java
+ by.mjc.utils.Utils

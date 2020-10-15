@@ -1,2 +1,2 @@
-multiproject/App.java
- multiproject.App
+by/mjc/app/App.java
+ by.mjc.app.App
