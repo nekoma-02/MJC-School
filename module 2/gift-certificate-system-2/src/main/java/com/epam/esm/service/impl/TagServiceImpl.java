@@ -13,11 +13,16 @@ import java.util.Optional;
 @Service
 public class TagServiceImpl implements TagService {
 
+    private static final String NOT_FOUND = "locale.message.TagNotFound";
+
     @Autowired
     private TagRepository tagRepository;
 
     @Override
     public boolean create(Tag tag) {
+        if (tag == null) {
+            return false;
+        }
         return tagRepository.create(tag);
     }
 
@@ -27,7 +32,7 @@ public class TagServiceImpl implements TagService {
         Optional<Tag> tag = tagRepository.findByName(name);
 
         if (!tag.isPresent()) {
-            throw new TagNotFoundException(777, "tag not found");
+            throw new TagNotFoundException(777, NOT_FOUND);
         }
 
         return tagRepository.delete(name);
@@ -38,7 +43,7 @@ public class TagServiceImpl implements TagService {
         Optional<Tag> tag = tagRepository.findById(id);
 
         if (!tag.isPresent()) {
-            throw new TagNotFoundException(id, "tag not found");
+            throw new TagNotFoundException(id, NOT_FOUND);
         }
 
         return tag.get();
@@ -49,7 +54,7 @@ public class TagServiceImpl implements TagService {
         Optional<Tag> tag = tagRepository.findByName(name);
 
         if (!tag.isPresent()) {
-            throw new TagNotFoundException(tag.get().getId(), "tag not found");
+            throw new TagNotFoundException(tag.get().getId(), NOT_FOUND);
         }
 
         return tag.get();

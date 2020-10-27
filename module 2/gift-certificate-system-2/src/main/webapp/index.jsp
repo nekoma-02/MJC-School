@@ -11,6 +11,9 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <span style="float: left">
+    <a href="?lang=en">en</a>
+    <a href="?lang=ru">ru</a>
+    </span>
   </body>
 </html>

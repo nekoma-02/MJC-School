@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface GiftCertificateService {
 
-    Optional<GiftCertificate> create(GiftCertificate certificate);
+    boolean create(GiftCertificate certificate);
 
     boolean delete(long id);
 

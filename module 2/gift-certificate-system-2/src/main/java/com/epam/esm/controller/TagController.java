@@ -6,9 +6,12 @@ import com.epam.esm.service.TagService;
 import com.epam.esm.service.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @RestController
 @RequestMapping("/tag")
@@ -23,7 +26,6 @@ public class TagController {
         return tagService.getAll();
     }
 
-
     @GetMapping("/{id}")
     public Tag getTagById(@PathVariable long id) {
         Tag tag = tagService.findById(id);
@@ -31,19 +33,23 @@ public class TagController {
     }
 
     @PostMapping
-    public boolean createTag(@RequestBody Tag tag) {
-        return tagService.create(tag);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTag(@RequestBody Tag tag) {
+         tagService.create(tag);
     }
 
     @DeleteMapping("/{name}")
-    public boolean deleteTag(@PathVariable String name) {
-        return tagService.delete(name);
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteTag(@PathVariable String name) {
+         tagService.delete(name);
     }
 
     @ExceptionHandler(TagNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Error tagNotFound(TagNotFoundException e) {
-        return new Error(40401,e.getMessage() + " id = " + e.getId());
+        Locale locale = new Locale("en");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("locale/locale",locale);
+        return new Error(40401, resourceBundle.getString(e.getMessage()) + " id = " + e.getId());
     }
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 
 public class CertificateRowMapper implements RowMapper<GiftCertificate> {
 
+
     private static final String ID = "gif_id";
     private static final String NAME = "gif_name";
     private static final String DESCRIPTION = "gift_description";
@@ -26,13 +27,11 @@ public class CertificateRowMapper implements RowMapper<GiftCertificate> {
     private static final String TIME_ZONE_LAST_UPDATE_DATE = "TimeZone_LastUpdateDate";
     private static final String DURATION = "Duration";
     private static final String TAGS = "tags";
+    private static final String SEPARATOR_CHARS = ", ";
 
 
     @Override
     public GiftCertificate mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-
-
 
             LocalDateTime createDate = rs.getTimestamp(CREATE_DATE).toLocalDateTime();
             ZoneId timeZoneCreateDate = ZoneId.of(rs.getString(TIME_ZONE_CREATE_DATE));
@@ -56,7 +55,7 @@ public class CertificateRowMapper implements RowMapper<GiftCertificate> {
 
         List<Tag> tagList = new ArrayList<>();
         if (StringUtils.isNotBlank(tag)) {
-            String[] tempArray = StringUtils.splitPreserveAllTokens(tag,", ");
+            String[] tempArray = StringUtils.splitPreserveAllTokens(tag, SEPARATOR_CHARS);
             for (int i = 0; i < tempArray.length; i+=2) {
                 tagList.add(newTag(tempArray[i],tempArray[i+1]));
             }

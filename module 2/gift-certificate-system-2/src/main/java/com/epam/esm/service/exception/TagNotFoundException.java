@@ -5,8 +5,6 @@ public class TagNotFoundException extends RuntimeException {
     private long id;
     private String message;
 
-    public TagNotFoundException() {}
-
     public TagNotFoundException(long id, String message) {
         this.id = id;
         this.message = message;

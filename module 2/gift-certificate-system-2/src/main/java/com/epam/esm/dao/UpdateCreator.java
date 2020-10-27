@@ -1,11 +1,6 @@
 package com.epam.esm.dao;
 
-import com.epam.esm.config.JdbcConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Map;
