@@ -1,68 +1,87 @@
-apply plugin: 'java'
-apply plugin: 'war'
-apply plugin: 'idea'
 
+apply plugin: 'java'
 
 group 'com.epam.esm'
-version '1.0-SNAPSHOT'
+
 
 repositories {
     mavenCentral()
 }
 
-test {
-    useJUnitPlatform()
-}
+
 
 
 dependencies {
+    compile project(":rest")
+}
 
-    def springVersion = '5.2.9.RELEASE'
-
-
-    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
-    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-    // https://mvnrepository.com/artifact/org.springframework/spring-core
-    compile group: 'org.springframework', name: 'spring-core', version: "${springVersion}"
-    // https://mvnrepository.com/artifact/org.springframework/spring-context
-    compile group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
-    // https://mvnrepository.com/artifact/org.springframework/spring-web
-    compile group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
-    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
-    compile group: 'org.springframework', name: 'spring-webmvc', version: "${springVersion}"
-    // https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api
-    providedCompile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.3'
-    // https://mvnrepository.com/artifact/javax.servlet/jstl
-    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
-    // https://mvnrepository.com/artifact/taglibs/standard
-    compile group: 'taglibs', name: 'standard', version: '1.1.2'
-    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
-    compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
-    // https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp
-    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.2'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "2.11.2"
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: "2.11.2"
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
-    // https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
-    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-// https://mvnrepository.com/artifact/com.h2database/h2
-    testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+subprojects {
 
 
+    apply plugin: 'war'
+    apply plugin: 'idea'
 
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    dependencies {
+
+        def springVersion = '5.2.9.RELEASE'
+        // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+        providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+        // https://mvnrepository.com/artifact/org.springframework/spring-core
+        compile group: 'org.springframework', name: 'spring-core', version: "${springVersion}"
+        // https://mvnrepository.com/artifact/org.springframework/spring-context
+        compile group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
+        // https://mvnrepository.com/artifact/org.springframework/spring-web
+        compile group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
+        // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+        compile group: 'org.springframework', name: 'spring-webmvc', version: "${springVersion}"
+        testCompile group: 'org.springframework', name: 'spring-test', version: "${springVersion}"
+        // https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api
+        providedCompile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.3'
+        // https://mvnrepository.com/artifact/javax.servlet/jstl
+        compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+        // https://mvnrepository.com/artifact/taglibs/standard
+        compile group: 'taglibs', name: 'standard', version: '1.1.2'
+        // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+        compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
+        // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+        compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
+        // https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp
+        compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+        // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
+        // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.2'
+        compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: "2.11.2"
+        compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: "2.11.2"
+        // https://mvnrepository.com/artifact/org.projectlombok/lombok
+        compileOnly 'org.projectlombok:lombok:1.18.8'
+        annotationProcessor 'org.projectlombok:lombok:1.18.8'
+        // https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
+        compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+        // https://mvnrepository.com/artifact/com.h2database/h2
+        testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
+        def jupiterVersion = '5.7.0'
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
+        testImplementation 'org.mockito:mockito-core:3.6.0'
+        testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.5.15'
+
+    }
 
 
 }
+
+
 
