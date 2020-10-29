@@ -33,13 +33,12 @@ public class GiftCertificateRepositoryTest {
     private GiftCertificateRepository repo;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         giftCertificateDTO = GiftCertificateDTO.builder()
                 .id(1)
                 .name("Sport")
                 .duration(12)
                 .build();
-
         certificate3 = GiftCertificate.builder()
                 .id(3)
                 .name("name3")
@@ -50,8 +49,6 @@ public class GiftCertificateRepositoryTest {
                 .duration(12)
                 .tagList(Arrays.asList(new Tag(1, "rock"), new Tag(2, "music")))
                 .build();
-
-
         certificate1 = GiftCertificate.builder()
                 .id(1)
                 .name("name1")
@@ -82,44 +79,44 @@ public class GiftCertificateRepositoryTest {
     }
 
     @Test
-    void findById_whenCertificateExist_thenReturnOptionalCertificate() {
+    public void findById_whenCertificateExist_thenReturnOptionalCertificate() {
         Assertions.assertEquals(Optional.of(certificate1), repo.findById(certificate1.getId()));
     }
 
     @Test
-    void findById_whenCertificateNotExists_thenReturnOptionalEmpty() {
+    public void findById_whenCertificateNotExists_thenReturnOptionalEmpty() {
         Assertions.assertEquals(Optional.empty(), repo.findById(99));
     }
 
     @Test
-    void create_whenCertificateDoesntExist_thenReturnTrue() {
+    public void create_whenCertificateDoesntExist_thenReturnTrue() {
         Assertions.assertTrue(repo.create(certificate3));
     }
 
     @Test
-    void create_whenCertificateIsNull_thenReturnNullPointerException() {
+    public void create_whenCertificateIsNull_thenReturnNullPointerException() {
         Assertions.assertThrows(NullPointerException.class, () -> repo.create(null));
     }
 
 
     @Test
-    void delete_whenCertificateExist_thenReturnTrue() {
+    public void delete_whenCertificateExist_thenReturnTrue() {
         Assertions.assertTrue(repo.delete(2));
     }
 
     @Test
-    void delete_whenCertificateNotExists_thenReturnFalse() {
+    public void delete_whenCertificateNotExists_thenReturnFalse() {
         Assertions.assertFalse(repo.delete(99));
     }
 
     @Test
-    void update_whenCertificateExist_thenReturnOptionalCertificate() {
+    public void update_whenCertificateExist_thenReturnOptionalCertificate() {
         certificate1.setName("Sport");
         Assertions.assertEquals(certificate1.getName(), repo.update(giftCertificateDTO).get().getName());
     }
 
     @Test
-    void update_whenCertificateNotExists_thenReturnOptionalEmpty() {
+    public void update_whenCertificateNotExists_thenReturnOptionalEmpty() {
         Assertions.assertEquals(Optional.empty(), repo.update(GiftCertificateDTO.builder().id(99).build()));
     }
 

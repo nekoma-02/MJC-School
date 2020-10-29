@@ -42,13 +42,12 @@ public class GiftCertificateServiceTest {
     private GiftCertificateService service;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         giftCertificateDTO = GiftCertificateDTO.builder()
                 .id(1)
                 .name("Sport")
                 .duration(12)
                 .build();
-
         certificate1 = GiftCertificate.builder()
                 .id(1)
                 .name("Sport")
@@ -73,25 +72,25 @@ public class GiftCertificateServiceTest {
     }
 
     @Test
-    void getAllCertificates() {
+    public void getAllCertificates() {
         Mockito.when(repo.getAll()).thenReturn(certificateList);
         Assertions.assertIterableEquals(certificateList, service.getAll());
     }
 
     @Test
-    void findById_whenCertificateExist_thenReturnCertificate() {
+    public void findById_whenCertificateExist_thenReturnCertificate() {
         Mockito.when(repo.findById(certificate1.getId())).thenReturn(Optional.of(certificate1));
         Assertions.assertEquals(Optional.of(certificate1), service.findById(certificate1.getId()));
     }
 
     @Test
-    void findById_whenCertificateNotExists_theNotFoundException() {
+    public void findById_whenCertificateNotExists_theNotFoundException() {
         Mockito.when(repo.findById(0)).thenThrow(GiftCertificateNotFoundException.class);
         Assertions.assertThrows(GiftCertificateNotFoundException.class, () -> service.findById(0));
     }
 
     @Test
-    void update_whenCertificateNotExists_thenNotFoundException() {
+    public void update_whenCertificateNotExists_thenNotFoundException() {
         GiftCertificateDTO certificate = GiftCertificateDTO.builder().id(0).build();
         Mockito.when(repo.update(certificate)).thenThrow(GiftCertificateNotFoundException.class);
         Assertions.assertThrows(GiftCertificateNotFoundException.class, () -> service.update(certificate));
@@ -105,55 +104,55 @@ public class GiftCertificateServiceTest {
     }
 
     @Test
-    void sortByNameAsc_whenCertificateListEmpty_thenReturnEmptyList() {
+    public void sortByNameAsc_whenCertificateListEmpty_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "name_asc", Collections.emptyList());
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByNameAsc_whenCertificateListNull_thenReturnEmptyList() {
+    public void sortByNameAsc_whenCertificateListNull_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "name_asc", null);
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByNameDesc_whenCertificateListEmpty_thenReturnEmptyList() {
+    public void sortByNameDesc_whenCertificateListEmpty_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "name_desc", Collections.emptyList());
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByNameDesc_whenCertificateListNull_thenReturnEmptyList() {
+    public void sortByNameDesc_whenCertificateListNull_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "name_desc", null);
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByDateAsc_whenCertificateListEmpty_thenReturnEmptyList() {
+    public void sortByDateAsc_whenCertificateListEmpty_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "date_asc", Collections.emptyList());
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByDateAsc_whenCertificateListNull_thenReturnEmptyList() {
+    public void sortByDateAsc_whenCertificateListNull_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "date_asc", null);
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByDateDesc_whenCertificateListEmpty_thenReturnEmptyList() {
+    public void sortByDateDesc_whenCertificateListEmpty_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "date_desc", Collections.emptyList());
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByDateDesc_whenCertificateListNull_thenReturnEmptyList() {
+    public void sortByDateDesc_whenCertificateListNull_thenReturnEmptyList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates("Sport", "date_desc", null);
         Assertions.assertIterableEquals(Collections.emptyList(), actual);
     }
 
     @Test
-    void sortByNameAsc_whenCertificateListIsNotNullAndSortTypeIsNameAsc_thenReturnList() {
+    public void sortByNameAsc_whenCertificateListIsNotNullAndSortTypeIsNameAsc_thenReturnList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates(null, "name_asc", certificateList);
         List<GiftCertificate> expected = Arrays.asList(certificate2, certificate1);
 
@@ -161,7 +160,7 @@ public class GiftCertificateServiceTest {
     }
 
     @Test
-    void sortByNameDesc_whenCertificateListIsNotNullAndSortTypeIsNameDesc_thenReturnList() {
+    public void sortByNameDesc_whenCertificateListIsNotNullAndSortTypeIsNameDesc_thenReturnList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates(null, "name_desc", certificateList);
         List<GiftCertificate> expected = Arrays.asList(certificate1, certificate2);
 
@@ -169,7 +168,7 @@ public class GiftCertificateServiceTest {
     }
 
     @Test
-    void sortByDateAsc_whenCertificateListIsNotNullAndSortTypeIsDateAsc_thenReturnList() {
+    public void sortByDateAsc_whenCertificateListIsNotNullAndSortTypeIsDateAsc_thenReturnList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates(null, "date_asc", certificateList);
         List<GiftCertificate> expected = Arrays.asList(certificate1, certificate2);
 
@@ -177,7 +176,7 @@ public class GiftCertificateServiceTest {
     }
 
     @Test
-    void sortByDateDesc_whenCertificateListIsNotNullAndSortTypeIsDateDesc_thenReturnList() {
+    public void sortByDateDesc_whenCertificateListIsNotNullAndSortTypeIsDateDesc_thenReturnList() {
         List<GiftCertificate> actual = service.getFilteredListCertificates(null, "date_desc", certificateList);
         List<GiftCertificate> expected = Arrays.asList(certificate2, certificate1);
 

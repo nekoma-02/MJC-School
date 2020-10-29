@@ -22,7 +22,6 @@ import java.util.Optional;
 @SpringJUnitConfig(TestConfig.class)
 @WebAppConfiguration
 public class TagServiceTest {
-
     private List<Tag> tagList;
     private Tag tag1;
     private Tag tag2;
@@ -35,20 +34,20 @@ public class TagServiceTest {
     private TagService tagService;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         tag1 = new Tag(1, "tag1");
         tag2 = new Tag(2, "tag2");
         tagList = Arrays.asList(tag1, tag2);
     }
 
     @Test
-    void getAllTags() {
+    public void getAllTags() {
         Mockito.when(tagRepository.getAll()).thenReturn(tagList);
         Assertions.assertIterableEquals(tagList, tagService.getAll());
     }
 
     @Test
-    void findTagById_whenTagExist_thenReturnTag() {
+    public void findTagById_whenTagExist_thenReturnTag() {
         long tagId = 1;
         Mockito.when(tagRepository.findById(tagId)).thenReturn(Optional.of(tag1));
         Tag expected = tag1;
@@ -57,14 +56,14 @@ public class TagServiceTest {
     }
 
     @Test
-    void findTagById_whenTagNotExisting_thenTagNotFoundException() {
+    public void findTagById_whenTagNotExisting_thenTagNotFoundException() {
         long tagId = 0;
         Mockito.when(tagRepository.findById(tagId)).thenReturn(Optional.empty());
         Assertions.assertThrows(TagNotFoundException.class, () -> tagService.findById(tagId));
     }
 
     @Test
-    void createTag_whenCreated_thenTrue() {
+    public void createTag_whenCreated_thenTrue() {
         Mockito.when(tagRepository.create(tag1)).thenReturn(true);
         Assertions.assertTrue(tagService.create(tag1));
     }
