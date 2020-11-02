@@ -14,7 +14,7 @@ public interface TagRepository {
      * @param tag the tag to be created
      * @return true if tag was created, false if it were not
      */
-    boolean create(Tag tag);
+    Optional<Tag> create(Tag tag);
 
     /**
      * This method is used to delete the tag by name

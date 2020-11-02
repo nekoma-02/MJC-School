@@ -18,6 +18,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -47,17 +49,23 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private static final String INSERT_TAG_TO_CERTIFICATE = "INSERT_TAG_TO_CERTIFICATE";
 
     @Override
-    public boolean create(GiftCertificate certificate) {
-
-        return jdbcTemplate.update(environment.getProperty(INSERT_CERTIFICATE),
-                certificate.getName(),
-                certificate.getDescription(),
-                certificate.getPrice(),
-                Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime()),
-                ZonedDateTime.now().getZone().toString(),
-                Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime()),
-                ZonedDateTime.now().getZone().toString(),
-                certificate.getDuration()) == 1;
+    public Optional<GiftCertificate> create(GiftCertificate certificate) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+                connection -> {
+                    PreparedStatement ps = connection.prepareStatement(environment.getProperty(INSERT_CERTIFICATE), new String[]{"id"});
+                    ps.setString(1, certificate.getName());
+                    ps.setString(2, certificate.getDescription());
+                    ps.setBigDecimal(3, certificate.getPrice());
+                    ps.setTimestamp(4, Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime()));
+                    ps.setString(5, ZonedDateTime.now().getZone().toString());
+                    ps.setTimestamp(6, Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime()));
+                    ps.setString(7, ZonedDateTime.now().getZone().toString());
+                    ps.setInt(8, certificate.getDuration());
+                    return ps;
+                },
+                keyHolder);
+        return getGiftCertificateByKeyHolder(keyHolder);
     }
 
     @Override
@@ -78,7 +86,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
         SqlParameterSource parameters = new MapSqlParameterSource().addValues(map);
         String query = updateCreator.getSqlUpdateQuery(new GiftCertificate());
         namedParameterJdbcTemplate.update(query, parameters, holder);
-        return giftCertificateByKeyHolder(holder);
+        return getGiftCertificateByKeyHolder(holder);
     }
 
     @Override
@@ -90,10 +98,11 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     }
 
     @Override
-    public void addTagToCertificate(List<Tag> tagList, long id) {
+    public Optional<GiftCertificate> addTagToCertificate(List<Tag> tagList, long id) {
         for (Tag tag : tagList) {
             jdbcTemplate.update(environment.getProperty(INSERT_TAG_TO_CERTIFICATE), tag.getName(), id);
         }
+        return getGiftCertificateById(id);
     }
 
     @Override
@@ -101,8 +110,12 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
         return jdbcTemplate.query(environment.getProperty(SELECT_CERTIFICATE), new CertificateRowMapper());
     }
 
-    private Optional<GiftCertificate> giftCertificateByKeyHolder(KeyHolder keyHolder) {
+    private Optional<GiftCertificate> getGiftCertificateByKeyHolder(KeyHolder keyHolder) {
         Number id = keyHolder.getKey();
         return id != null ? findById(id.longValue()) : Optional.empty();
+    }
+
+    private Optional<GiftCertificate> getGiftCertificateById(long id) {
+        return findById(id);
     }
 }

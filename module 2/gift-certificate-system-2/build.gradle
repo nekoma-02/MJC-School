@@ -1,6 +1,5 @@
 
 apply plugin: 'java'
-
 group 'com.epam.esm'
 
 

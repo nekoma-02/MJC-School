@@ -14,15 +14,15 @@ public interface GiftCertificateRepository {
      * This method is used to create the certificate
      *
      * @param certificate the certificate to be created
-     * @return true if certificate was created, false if it were not
+     * @return an Optional with the value of create certificate
      */
-    boolean create(GiftCertificate certificate);
+    Optional<GiftCertificate> create(GiftCertificate certificate);
 
     /**
      * This method is used to delete the certificate by id
      *
      * @param id the id of certificate to be deleted
-     * @return true if certificate was deleted, false if it were not
+     * @return an Optional with the value of delete certificate
      */
     boolean delete(long id);
 
@@ -48,7 +48,7 @@ public interface GiftCertificateRepository {
      * @param tagList the list with tags value
      * @param id the id of certificate for binding tags
      */
-    void addTagToCertificate(List<Tag> tagList, long id);
+    Optional<GiftCertificate> addTagToCertificate(List<Tag> tagList, long id);
 
     /**
      * This method is used to return the list of certificates

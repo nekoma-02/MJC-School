@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -49,8 +50,7 @@ public class GiftCertificateController {
 
     @GetMapping("/{id}")
     public GiftCertificate getGiftCertificate(@PathVariable long id) {
-        Optional<GiftCertificate> giftCertificate = service.findById(id);
-        return giftCertificate.get();
+        return service.findById(id);
     }
 
     @DeleteMapping("/{id}")
@@ -60,27 +60,24 @@ public class GiftCertificateController {
     }
 
     @PostMapping
-    public ResponseEntity<Boolean> createCertificate(@RequestBody GiftCertificate giftCertificate) {
-        boolean isCreated = service.create(giftCertificate);
-        ResponseEntity<Boolean> responseEntity = new ResponseEntity<>(isCreated, HttpStatus.CREATED);
+    public ResponseEntity<GiftCertificate> createCertificate(@RequestBody GiftCertificate giftCertificate) {
+        GiftCertificate giftCertificate1 = service.create(giftCertificate);
+        ResponseEntity<GiftCertificate> responseEntity = new ResponseEntity<>(giftCertificate1, HttpStatus.CREATED);
         return responseEntity;
     }
 
     @PatchMapping("/{id}")
-    public void updateCertificate(@PathVariable long id, @RequestBody GiftCertificateDTO giftCertificate) {
-        Optional<GiftCertificate> optionalGiftCertificate = service.findById(id);
-
-        if (!optionalGiftCertificate.isPresent()) {
-            throw new GiftCertificateNotFoundException(id, "certificate not found");
-        }
-        giftCertificate.setId(id);
-        service.update(giftCertificate);
+    public ResponseEntity<GiftCertificate> updateCertificate(@PathVariable long id, @RequestBody GiftCertificateDTO giftCertificate) {
+        GiftCertificate giftCertificate1 =  service.update(giftCertificate,id);
+        ResponseEntity<GiftCertificate> responseEntity = new ResponseEntity<>(giftCertificate1, HttpStatus.CREATED);
+        return responseEntity;
     }
 
     @PostMapping("/binding/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addTagToCertificate(@RequestBody List<Tag> tagList, @PathVariable long id) {
-        service.addTagToCertificate(tagList, id);
+    public ResponseEntity<GiftCertificate> addTagToCertificate(@RequestBody List<Tag> tagList, @PathVariable long id) {
+        GiftCertificate giftCertificate = service.addTagToCertificate(tagList, id);
+        ResponseEntity<GiftCertificate> responseEntity = new ResponseEntity<>(giftCertificate, HttpStatus.CREATED);
+        return responseEntity;
     }
 
     @ExceptionHandler(GiftCertificateNotFoundException.class)

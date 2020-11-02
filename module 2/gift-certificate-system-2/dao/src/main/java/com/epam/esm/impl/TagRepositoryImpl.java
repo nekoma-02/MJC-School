@@ -8,8 +8,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +33,16 @@ public class TagRepositoryImpl implements TagRepository {
     private static final String REMOVE_TAG_BY_NAME = "REMOVE_TAG_BY_NAME";
 
     @Override
-    public boolean create(Tag tag) {
-        return jdbcTemplate.update(environment.getProperty(INSERT_TAG), tag.getName()) == 1 ? true : false;
+    public Optional<Tag> create(Tag tag) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+                connection -> {
+                    PreparedStatement ps = connection.prepareStatement(environment.getProperty(INSERT_TAG), new String[]{"id"});
+                    ps.setString(1, tag.getName());
+                    return ps;
+                },
+                keyHolder);
+        return getTagByKeyHolder(keyHolder);
     }
 
     @Override
@@ -56,5 +67,9 @@ public class TagRepositoryImpl implements TagRepository {
         return jdbcTemplate.query(environment.getProperty(SELECT_TAG), new TagRowMapper());
     }
 
+    private Optional<Tag> getTagByKeyHolder(KeyHolder keyHolder) {
+        Number id = keyHolder.getKey();
+        return id != null ? findById(id.longValue()) : Optional.empty();
+    }
 
 }

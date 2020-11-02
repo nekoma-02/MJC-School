@@ -2,11 +2,13 @@ package com.epam.esm.controller;
 
 import com.epam.esm.TagService;
 import com.epam.esm.entity.Error;
+import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +46,10 @@ public class TagController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTag(@RequestBody Tag tag) {
-         tagService.create(tag);
+    public ResponseEntity<Tag> createTag(@RequestBody Tag tag) {
+         Tag tag1 =tagService.create(tag);
+        ResponseEntity<Tag> responseEntity = new ResponseEntity<>(tag1, HttpStatus.CREATED);
+        return responseEntity;
     }
 
     @DeleteMapping("/{name}")

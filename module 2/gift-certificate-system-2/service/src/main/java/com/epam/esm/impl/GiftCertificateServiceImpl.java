@@ -25,8 +25,8 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     private GiftCertificateRepository repo;
 
     @Override
-    public boolean create(GiftCertificate certificate) {
-        return repo.create(certificate);
+    public GiftCertificate create(GiftCertificate certificate) {
+        return repo.create(certificate).get();
     }
 
     @Override
@@ -39,12 +39,13 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public Optional<GiftCertificate> update(GiftCertificateDTO giftCertificate) {
-        Optional<GiftCertificate> optionalGiftCertificate = repo.findById(giftCertificate.getId());
+    public GiftCertificate update(GiftCertificateDTO giftCertificate, long id) {
+        Optional<GiftCertificate> optionalGiftCertificate = repo.findById(id);
         if (!optionalGiftCertificate.isPresent()) {
             throw new GiftCertificateNotFoundException(giftCertificate.getId(), NOT_FOUND);
         }
-        return repo.update(giftCertificate);
+        giftCertificate.setId(id);
+        return repo.update(giftCertificate).get();
     }
 
 
@@ -107,23 +108,22 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public Optional<GiftCertificate> findById(long id) {
+    public GiftCertificate findById(long id) {
         Optional<GiftCertificate> giftCertificate = repo.findById(id);
         if (!giftCertificate.isPresent()) {
             throw new GiftCertificateNotFoundException(id, NOT_FOUND);
         }
-
-        return repo.findById(id);
+        return giftCertificate.get();
     }
 
     @Override
     @Transactional
-    public void addTagToCertificate(List<Tag> tagList, long id) {
+    public GiftCertificate addTagToCertificate(List<Tag> tagList, long id) {
         Optional<GiftCertificate> giftCertificate = repo.findById(id);
         if (!giftCertificate.isPresent()) {
             throw new GiftCertificateNotFoundException(id, NOT_FOUND);
         }
-        repo.addTagToCertificate(tagList, id);
+        return repo.addTagToCertificate(tagList, id).get();
     }
 
     @Override

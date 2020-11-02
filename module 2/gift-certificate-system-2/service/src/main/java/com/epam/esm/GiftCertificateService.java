@@ -16,7 +16,7 @@ public interface GiftCertificateService {
      * @param certificate the certificate to be created
      * @return true if certificate was created, false if it were not
      */
-    boolean create(GiftCertificate certificate);
+    GiftCertificate create(GiftCertificate certificate);
 
     /**
      * This method is used to delete the certificate by id
@@ -34,7 +34,7 @@ public interface GiftCertificateService {
      * @return an Optional with the value of updated certificate
      * @throws com.epam.esm.exception.GiftCertificateNotFoundException if certificate does not exist
      */
-    Optional<GiftCertificate> update(GiftCertificateDTO giftCertificate);
+    GiftCertificate update(GiftCertificateDTO giftCertificate, long id);
 
     /**
      * This method is used to return certificate by id
@@ -43,7 +43,7 @@ public interface GiftCertificateService {
      * @return on Optional with the value of find Certificate
      * @throws com.epam.esm.exception.GiftCertificateNotFoundException if certificate was not found
      */
-    Optional<GiftCertificate> findById(long id);
+    GiftCertificate findById(long id);
 
     /**
      * This method is used for add tag to certificate
@@ -51,7 +51,7 @@ public interface GiftCertificateService {
      * @param tagList the list with tags value
      * @param id the id of certificate for binding tags
      */
-    void addTagToCertificate(List<Tag> tagList, long id);
+    GiftCertificate addTagToCertificate(List<Tag> tagList, long id);
 
     /**
      * This method is used to return the list of certificates

@@ -18,11 +18,8 @@ public class TagServiceImpl implements TagService {
     private TagRepository tagRepository;
 
     @Override
-    public boolean create(Tag tag) {
-        if (tag == null) {
-            return false;
-        }
-        return tagRepository.create(tag);
+    public Tag create(Tag tag) {
+        return tagRepository.create(tag).get();
     }
 
     @Override
