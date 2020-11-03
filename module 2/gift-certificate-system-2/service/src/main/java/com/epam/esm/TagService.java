@@ -20,7 +20,7 @@ public interface TagService {
      *
      * @param name the name of tag to be deleted
      * @return true if tag was deleted, false if it were not
-     * @throws com.epam.esm.exception.TagNotFoundException if tag does not exist
+     * @throws com.epam.esm.exception.EntityNotFoundException if tag does not exist
      */
     boolean delete(String name);
 
@@ -29,7 +29,7 @@ public interface TagService {
      *
      * @param id the id of tag to be returned
      * @return Tag
-     * @throws com.epam.esm.exception.TagNotFoundException if tag was not found
+     * @throws com.epam.esm.exception.EntityNotFoundException if tag was not found
      */
     Tag findById(long id);
 
@@ -38,7 +38,7 @@ public interface TagService {
      *
      * @param name name of tag to be returned
      * @return Tag
-     * @throws com.epam.esm.exception.TagNotFoundException if tag was not found
+     * @throws com.epam.esm.exception.EntityNotFoundException if tag was not found
      */
     Tag findByName(String name);
 

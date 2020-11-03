@@ -3,7 +3,7 @@ package com.epam.esm;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.GiftCertificateDTO;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.exception.GiftCertificateNotFoundException;
+import com.epam.esm.exception.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,15 +85,15 @@ public class GiftCertificateServiceTest {
 
     @Test
     public void findById_whenCertificateNotExists_theNotFoundException() {
-        Mockito.when(repo.findById(0)).thenThrow(GiftCertificateNotFoundException.class);
-        Assertions.assertThrows(GiftCertificateNotFoundException.class, () -> service.findById(0));
+        Mockito.when(repo.findById(0)).thenThrow(EntityNotFoundException.class);
+        Assertions.assertThrows(EntityNotFoundException.class, () -> service.findById(0));
     }
 
     @Test
     public void update_whenCertificateNotExists_thenNotFoundException() {
-        GiftCertificateDTO certificate = GiftCertificateDTO.builder().id(0).build();
-        Mockito.when(repo.update(certificate)).thenThrow(GiftCertificateNotFoundException.class);
-        Assertions.assertThrows(GiftCertificateNotFoundException.class, () -> service.update(certificate));
+        GiftCertificateDTO certificate = GiftCertificateDTO.builder().build();
+        Mockito.when(repo.update(certificate)).thenThrow(EntityNotFoundException.class);
+        Assertions.assertThrows(EntityNotFoundException.class, () -> service.update(certificate,0));
     }
 
     @Test

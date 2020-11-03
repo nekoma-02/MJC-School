@@ -1,11 +1,12 @@
 package com.epam.esm.controller;
 
 import com.epam.esm.GiftCertificateService;
+import com.epam.esm.TagService;
 import com.epam.esm.entity.Error;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.GiftCertificateDTO;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.exception.GiftCertificateNotFoundException;
+import com.epam.esm.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -23,66 +24,70 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/certificate")
 public class GiftCertificateController {
 
+    private static final int ERROR_CODE = 40402;
+
     @Autowired
-    private GiftCertificateService service;
+    private GiftCertificateService certificateService;
+
+    @Autowired
+    private TagService tagService;
 
     @Autowired
     private MessageSource messageSource;
 
     @GetMapping
     public List<GiftCertificate> getAllCertificate() {
-        return service.getAll();
+        return certificateService.getAll();
     }
 
     @GetMapping("/list")
     public List<GiftCertificate> getGiftCertificate(@RequestParam(required = false) String param, @RequestParam(required = false) String sort) {
-        List<GiftCertificate> certificateList = service.getAll();
-        service.getFilteredListCertificates(param, sort, certificateList);
+        List<GiftCertificate> certificateList = certificateService.getAll();
+        certificateService.getFilteredListCertificates(param, sort, certificateList);
         return certificateList;
     }
 
     @GetMapping("/{id}")
     public GiftCertificate getGiftCertificate(@PathVariable long id) {
-        return service.findById(id);
+        return certificateService.findById(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGiftCertificate(@PathVariable long id) {
-        service.delete(id);
+        certificateService.delete(id);
     }
 
     @PostMapping
     public ResponseEntity<GiftCertificate> createCertificate(@RequestBody GiftCertificate giftCertificate) {
-        GiftCertificate giftCertificate1 = service.create(giftCertificate);
+        GiftCertificate giftCertificate1 = certificateService.create(giftCertificate);
         ResponseEntity<GiftCertificate> responseEntity = new ResponseEntity<>(giftCertificate1, HttpStatus.CREATED);
         return responseEntity;
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<GiftCertificate> updateCertificate(@PathVariable long id, @RequestBody GiftCertificateDTO giftCertificate) {
-        GiftCertificate giftCertificate1 =  service.update(giftCertificate,id);
+        GiftCertificate giftCertificate1 =  certificateService.update(giftCertificate,id);
         ResponseEntity<GiftCertificate> responseEntity = new ResponseEntity<>(giftCertificate1, HttpStatus.CREATED);
         return responseEntity;
     }
 
     @PostMapping("/binding/{id}")
     public ResponseEntity<GiftCertificate> addTagToCertificate(@RequestBody List<Tag> tagList, @PathVariable long id) {
-        GiftCertificate giftCertificate = service.addTagToCertificate(tagList, id);
+        tagList.stream().distinct().forEach(t -> tagService.findByName(t.getName()));
+        GiftCertificate giftCertificate = certificateService.addTagToCertificate(tagList, id);
         ResponseEntity<GiftCertificate> responseEntity = new ResponseEntity<>(giftCertificate, HttpStatus.CREATED);
         return responseEntity;
     }
 
-    @ExceptionHandler(GiftCertificateNotFoundException.class)
+    @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Error CertificateNotFound(GiftCertificateNotFoundException e, Locale locale) {
-        return new Error(40402, messageSource.getMessage(e.getMessage(), null, locale) + " id = " + e.getId());
+    public Error CertificateNotFound(EntityNotFoundException e, Locale locale) {
+        return new Error(ERROR_CODE, messageSource.getMessage(e.getMessage(), null, locale) + e.getId());
     }
 }

@@ -2,9 +2,8 @@ package com.epam.esm.controller;
 
 import com.epam.esm.TagService;
 import com.epam.esm.entity.Error;
-import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.exception.TagNotFoundException;
+import com.epam.esm.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -58,10 +57,10 @@ public class TagController {
          tagService.delete(name);
     }
 
-    @ExceptionHandler(TagNotFoundException.class)
+    @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Error tagNotFound(TagNotFoundException e, Locale locale) {
-        return new Error(40401, messageSource.getMessage(e.getMessage(), null, locale) + " id = " + e.getId());
+    public Error tagNotFound(EntityNotFoundException e, Locale locale) {
+        return new Error(40401, messageSource.getMessage(e.getMessage(), null, locale) + e.getId());
     }
 
 }

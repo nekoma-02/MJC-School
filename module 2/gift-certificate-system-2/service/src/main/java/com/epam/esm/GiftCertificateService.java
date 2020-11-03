@@ -23,7 +23,7 @@ public interface GiftCertificateService {
      *
      * @param id the id of certificate to be deleted
      * @return true if certificate was deleted, false if it were not
-     * @throws com.epam.esm.exception.GiftCertificateNotFoundException if certificate does not exist
+     * @throws com.epam.esm.exception.EntityNotFoundException if certificate does not exist
      */
     boolean delete(long id);
 
@@ -32,7 +32,7 @@ public interface GiftCertificateService {
      *
      * @param giftCertificate the certificate to be updated
      * @return an Optional with the value of updated certificate
-     * @throws com.epam.esm.exception.GiftCertificateNotFoundException if certificate does not exist
+     * @throws com.epam.esm.exception.EntityNotFoundException if certificate does not exist
      */
     GiftCertificate update(GiftCertificateDTO giftCertificate, long id);
 
@@ -41,7 +41,7 @@ public interface GiftCertificateService {
      *
      * @param id the id of certificate to be returned
      * @return on Optional with the value of find Certificate
-     * @throws com.epam.esm.exception.GiftCertificateNotFoundException if certificate was not found
+     * @throws com.epam.esm.exception.EntityNotFoundException if certificate was not found
      */
     GiftCertificate findById(long id);
 

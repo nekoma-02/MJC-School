@@ -1,7 +1,7 @@
 package com.epam.esm;
 
 import com.epam.esm.entity.Tag;
-import com.epam.esm.exception.TagNotFoundException;
+import com.epam.esm.exception.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,12 +59,12 @@ public class TagServiceTest {
     public void findTagById_whenTagNotExisting_thenTagNotFoundException() {
         long tagId = 0;
         Mockito.when(tagRepository.findById(tagId)).thenReturn(Optional.empty());
-        Assertions.assertThrows(TagNotFoundException.class, () -> tagService.findById(tagId));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> tagService.findById(tagId));
     }
 
     @Test
-    public void createTag_whenCreated_thenTrue() {
-        Mockito.when(tagRepository.create(tag1)).thenReturn(true);
-        Assertions.assertTrue(tagService.create(tag1));
+    public void createTag_whenCreated_thenReturnTag() {
+        Mockito.when(tagRepository.create(tag1)).thenReturn(Optional.of(tag1));
+        Assertions.assertEquals(Optional.of(tag1).get(),tagService.create(tag1));
     }
 }

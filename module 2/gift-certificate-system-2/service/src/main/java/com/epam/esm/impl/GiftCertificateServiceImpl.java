@@ -6,7 +6,7 @@ import com.epam.esm.ParamName;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.GiftCertificateDTO;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.exception.GiftCertificateNotFoundException;
+import com.epam.esm.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +33,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public boolean delete(long id) {
         Optional<GiftCertificate> giftCertificate = repo.findById(id);
         if (!giftCertificate.isPresent()) {
-            throw new GiftCertificateNotFoundException(id, NOT_FOUND);
+            throw new EntityNotFoundException(NOT_FOUND, id);
         }
         return repo.delete(id);
     }
@@ -42,7 +42,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public GiftCertificate update(GiftCertificateDTO giftCertificate, long id) {
         Optional<GiftCertificate> optionalGiftCertificate = repo.findById(id);
         if (!optionalGiftCertificate.isPresent()) {
-            throw new GiftCertificateNotFoundException(giftCertificate.getId(), NOT_FOUND);
+            throw new EntityNotFoundException(NOT_FOUND, giftCertificate.getId());
         }
         giftCertificate.setId(id);
         return repo.update(giftCertificate).get();
@@ -111,7 +111,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public GiftCertificate findById(long id) {
         Optional<GiftCertificate> giftCertificate = repo.findById(id);
         if (!giftCertificate.isPresent()) {
-            throw new GiftCertificateNotFoundException(id, NOT_FOUND);
+            throw new EntityNotFoundException(NOT_FOUND, id);
         }
         return giftCertificate.get();
     }
@@ -121,7 +121,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public GiftCertificate addTagToCertificate(List<Tag> tagList, long id) {
         Optional<GiftCertificate> giftCertificate = repo.findById(id);
         if (!giftCertificate.isPresent()) {
-            throw new GiftCertificateNotFoundException(id, NOT_FOUND);
+            throw new EntityNotFoundException(NOT_FOUND, id);
         }
         return repo.addTagToCertificate(tagList, id).get();
     }
@@ -136,20 +136,16 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         if (param != null) {
             certificateList = findByTag(param, certificateList);
         }
-
         if (sort != null) {
             if (ParamName.NAME_ASC.equals(ParamName.valueOf(sort.toUpperCase()))) {
                 certificateList = sortByNameAsc(certificateList);
             }
-
             if (ParamName.NAME_DESC.equals(ParamName.valueOf(sort.toUpperCase()))) {
                 certificateList = sortByNameDesc(certificateList);
             }
-
             if (ParamName.DATE_ASC.equals(ParamName.valueOf(sort.toUpperCase()))) {
                 certificateList = sortByDateAsc(certificateList);
             }
-
             if (ParamName.DATE_DESC.equals(ParamName.valueOf(sort.toUpperCase()))) {
                 certificateList = sortByDateDesc(certificateList);
             }
