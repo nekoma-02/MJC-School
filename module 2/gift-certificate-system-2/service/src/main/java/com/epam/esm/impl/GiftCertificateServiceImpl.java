@@ -2,17 +2,18 @@ package com.epam.esm.impl;
 
 import com.epam.esm.GiftCertificateRepository;
 import com.epam.esm.GiftCertificateService;
-import com.epam.esm.ParamName;
+import com.epam.esm.entity.ParamName;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.GiftCertificateDTO;
 import com.epam.esm.entity.Tag;
+import com.epam.esm.exception.EntityExistException;
 import com.epam.esm.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,16 @@ import java.util.stream.Collectors;
 public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     private static final String NOT_FOUND = "locale.message.CertificateNotFound";
+    private static final String CERTIFICATE_EXIST = "locale.message.CertificateExist";
 
     @Autowired
     private GiftCertificateRepository repo;
 
     @Override
     public GiftCertificate create(GiftCertificate certificate) {
+        if (repo.findByName(certificate.getName()).isPresent()) {
+            throw new EntityExistException(CERTIFICATE_EXIST, certificate.getName());
+        }
         return repo.create(certificate).get();
     }
 
@@ -42,69 +47,13 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public GiftCertificate update(GiftCertificateDTO giftCertificate, long id) {
         Optional<GiftCertificate> optionalGiftCertificate = repo.findById(id);
         if (!optionalGiftCertificate.isPresent()) {
-            throw new EntityNotFoundException(NOT_FOUND, giftCertificate.getId());
+            throw new EntityNotFoundException(NOT_FOUND, id);
+        }
+        if (repo.findByName(giftCertificate.getName()).isPresent()) {
+            throw new EntityExistException(CERTIFICATE_EXIST, giftCertificate.getName());
         }
         giftCertificate.setId(id);
         return repo.update(giftCertificate).get();
-    }
-
-
-    private static List<GiftCertificate> findByTag(String tagName, List<GiftCertificate> certificateList) {
-        if (certificateList == null || tagName == null) {
-            return Collections.emptyList();
-        }
-        return certificateList
-                .stream()
-                .filter(c -> c.getTagList()
-                        .stream()
-                        .anyMatch(t -> t.getName().equals(tagName)))
-                .collect(Collectors.toList());
-    }
-
-
-    private static List<GiftCertificate> sortByDateAsc(List<GiftCertificate> certificateList) {
-        if (certificateList == null) {
-            return Collections.emptyList();
-        }
-        return certificateList
-                .stream()
-                .sorted(Comparator.comparing(GiftCertificate::getCreateDate))
-                .collect(Collectors.toList());
-    }
-
-
-    private static List<GiftCertificate> sortByDateDesc(List<GiftCertificate> certificateList) {
-        if (certificateList == null) {
-            return Collections.emptyList();
-        }
-        return certificateList
-                .stream()
-                .sorted(Comparator.comparing(GiftCertificate::getCreateDate)
-                        .reversed())
-                .collect(Collectors.toList());
-    }
-
-
-    private static List<GiftCertificate> sortByNameAsc(List<GiftCertificate> certificateList) {
-        if (certificateList == null) {
-            return Collections.emptyList();
-        }
-        return certificateList
-                .stream()
-                .sorted(Comparator.comparing(GiftCertificate::getName))
-                .collect(Collectors.toList());
-    }
-
-
-    private static List<GiftCertificate> sortByNameDesc(List<GiftCertificate> certificateList) {
-        if (certificateList == null) {
-            return Collections.emptyList();
-        }
-        return certificateList
-                .stream()
-                .sorted(Comparator.comparing(GiftCertificate::getName)
-                        .reversed())
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -123,7 +72,10 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         if (!giftCertificate.isPresent()) {
             throw new EntityNotFoundException(NOT_FOUND, id);
         }
-        return repo.addTagToCertificate(tagList, id).get();
+        List<Tag> actualTags = giftCertificate.get().getTagList();
+        actualTags.addAll(tagList);
+        actualTags.stream().distinct().collect(Collectors.toList());
+        return repo.addTagToCertificate(actualTags, id).get();
     }
 
     @Override
@@ -132,25 +84,35 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public List<GiftCertificate> getFilteredListCertificates(String param, String sort, List<GiftCertificate> certificateList) {
-        if (param != null) {
-            certificateList = findByTag(param, certificateList);
-        }
-        if (sort != null) {
-            if (ParamName.NAME_ASC.equals(ParamName.valueOf(sort.toUpperCase()))) {
-                certificateList = sortByNameAsc(certificateList);
-            }
-            if (ParamName.NAME_DESC.equals(ParamName.valueOf(sort.toUpperCase()))) {
-                certificateList = sortByNameDesc(certificateList);
-            }
-            if (ParamName.DATE_ASC.equals(ParamName.valueOf(sort.toUpperCase()))) {
-                certificateList = sortByDateAsc(certificateList);
-            }
-            if (ParamName.DATE_DESC.equals(ParamName.valueOf(sort.toUpperCase()))) {
-                certificateList = sortByDateDesc(certificateList);
-            }
-        }
-        return certificateList;
+    public List<GiftCertificate> getFilteredListCertificates(Map<String, String> filterParam) {
+        deleteIllegalSearchParam(filterParam);
+        deleteIllegalSortParam(filterParam);
+        return repo.filterCertificate(filterParam);
+    }
+
+    private void deleteIllegalSearchParam(Map<String, String> filterParam) {
+        filterParam.entrySet().removeIf(
+                entry -> Arrays.stream(ParamName.values()).noneMatch(e -> e.getParamName().equals(entry.getKey()))
+        );
+    }
+
+    private void deleteIllegalSortParam(Map<String, String> filterParam) {
+        filterParam.entrySet().removeIf(
+                entry -> ParamName.getPossibleDirectionParam().stream().noneMatch(e -> {
+                    if (entry.getKey().equals(ParamName.DIRECTION.getParamName())) {
+                        return entry.getValue().equals(e);
+                    }
+                    return true;
+                })
+        );
+        filterParam.entrySet().removeIf(
+                entry -> ParamName.getPossibleFieldParam().stream().noneMatch(e -> {
+                    if (entry.getKey().equals(ParamName.FIELD.getParamName())) {
+                        return entry.getValue().equals(e);
+                    }
+                    return true;
+                })
+        );
     }
 
 }

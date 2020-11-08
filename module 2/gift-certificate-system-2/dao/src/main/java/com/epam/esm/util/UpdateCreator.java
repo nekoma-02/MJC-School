@@ -1,4 +1,4 @@
-package com.epam.esm;
+package com.epam.esm.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;

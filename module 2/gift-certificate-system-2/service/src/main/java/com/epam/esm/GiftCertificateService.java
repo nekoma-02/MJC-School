@@ -4,6 +4,7 @@ import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.GiftCertificateDTO;
 import com.epam.esm.entity.Tag;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -73,5 +74,5 @@ public interface GiftCertificateService {
      * @return List of sorted certificates, or unsorted List if received sort
      * does not exist(or null) or received certificates is null
      */
-    List<GiftCertificate> getFilteredListCertificates(String param, String sort, List<GiftCertificate> certificateList);
+    List<GiftCertificate> getFilteredListCertificates(Map<String,String> filterParam);
 }

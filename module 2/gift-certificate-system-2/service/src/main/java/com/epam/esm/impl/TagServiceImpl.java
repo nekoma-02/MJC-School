@@ -3,6 +3,7 @@ package com.epam.esm.impl;
 import com.epam.esm.TagRepository;
 import com.epam.esm.TagService;
 import com.epam.esm.entity.Tag;
+import com.epam.esm.exception.EntityExistException;
 import com.epam.esm.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,16 @@ import java.util.Optional;
 public class TagServiceImpl implements TagService {
 
     private static final String NOT_FOUND = "locale.message.TagNotFound";
+    private static final String ENTITY_EXIST = "locale.message.TagExist";
 
     @Autowired
     private TagRepository tagRepository;
 
     @Override
     public Tag create(Tag tag) {
+        if (tagRepository.findByName(tag.getName()).isPresent()) {
+            throw new EntityExistException(ENTITY_EXIST, tag.getName());
+        }
         return tagRepository.create(tag).get();
     }
 

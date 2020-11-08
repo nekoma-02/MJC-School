@@ -4,6 +4,7 @@ import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.GiftCertificateDTO;
 import com.epam.esm.entity.Tag;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -43,6 +44,14 @@ public interface GiftCertificateRepository {
     Optional<GiftCertificate> findById(long id);
 
     /**
+     * This method is used to return certificate by name
+     *
+     * @param name the name of certificate to be returned
+     * @return on Optional with the value of find Certificate
+     */
+    Optional<GiftCertificate> findByName(String name);
+
+    /**
      * This method is used for add tag to certificate
      *
      * @param tagList the list with tags value
@@ -57,4 +66,6 @@ public interface GiftCertificateRepository {
      * no certificates were found
      */
     List<GiftCertificate> getAll();
+
+    List<GiftCertificate> filterCertificate(Map<String,String> filterParam);
 }

@@ -29,10 +29,7 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    @Autowired
-    private MessageSource messageSource;
-
-    @GetMapping("/all")
+    @GetMapping
     public List<Tag> getAllTags() {
         return tagService.getAll();
     }
@@ -55,12 +52,6 @@ public class TagController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteTag(@PathVariable String name) {
          tagService.delete(name);
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Error tagNotFound(EntityNotFoundException e, Locale locale) {
-        return new Error(40401, messageSource.getMessage(e.getMessage(), null, locale) + e.getId());
     }
 
 }

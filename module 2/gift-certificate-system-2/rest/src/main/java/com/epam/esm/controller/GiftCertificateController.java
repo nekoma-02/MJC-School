@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/certificate")
 public class GiftCertificateController {
-
-    private static final int ERROR_CODE = 40402;
 
     @Autowired
     private GiftCertificateService certificateService;
@@ -37,19 +37,12 @@ public class GiftCertificateController {
     @Autowired
     private TagService tagService;
 
-    @Autowired
-    private MessageSource messageSource;
-
     @GetMapping
-    public List<GiftCertificate> getAllCertificate() {
-        return certificateService.getAll();
-    }
-
-    @GetMapping("/list")
-    public List<GiftCertificate> getGiftCertificate(@RequestParam(required = false) String param, @RequestParam(required = false) String sort) {
-        List<GiftCertificate> certificateList = certificateService.getAll();
-        certificateService.getFilteredListCertificates(param, sort, certificateList);
-        return certificateList;
+    public List<GiftCertificate> getGiftCertificate(@RequestParam Map<String,String> filterParam) {
+        if (filterParam.isEmpty()) {
+            return certificateService.getAll();
+        }
+        return certificateService.getFilteredListCertificates(filterParam);
     }
 
     @GetMapping("/{id}")
@@ -85,9 +78,4 @@ public class GiftCertificateController {
         return responseEntity;
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Error CertificateNotFound(EntityNotFoundException e, Locale locale) {
-        return new Error(ERROR_CODE, messageSource.getMessage(e.getMessage(), null, locale) + e.getId());
-    }
 }

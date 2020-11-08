@@ -1,7 +1,8 @@
 package com.epam.esm.impl;
 
 import com.epam.esm.GiftCertificateRepository;
-import com.epam.esm.UpdateCreator;
+import com.epam.esm.util.SelectFilterCreator;
+import com.epam.esm.util.UpdateCreator;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.GiftCertificateDTO;
 import com.epam.esm.entity.Tag;
@@ -46,6 +47,7 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
     private static final String DELETE_CERTIFICATE_BY_ID = "DELETE_CERTIFICATE_BY_ID";
     private static final String SELECT_CERTIFICATE = "SELECT_CERTIFICATE";
     private static final String SELECT_CERTIFICATE_BY_ID = "SELECT_CERTIFICATE_BY_ID";
+    private static final String SELECT_CERTIFICATE_BY_NAME = "SELECT_CERTIFICATE_BY_NAME";
     private static final String INSERT_TAG_TO_CERTIFICATE = "INSERT_TAG_TO_CERTIFICATE";
 
     @Override
@@ -70,30 +72,33 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
 
     @Override
     public boolean delete(long id) {
-        return jdbcTemplate.update(environment.getProperty(DELETE_CERTIFICATE_BY_ID), id) == 1 ? true : false;
+        return jdbcTemplate.update(environment.getProperty(DELETE_CERTIFICATE_BY_ID), id) != 0 ? true : false;
     }
 
     @Override
     public Optional<GiftCertificate> update(GiftCertificateDTO giftCertificate) {
-        KeyHolder holder = new GeneratedKeyHolder();
-
         giftCertificate.setLastUpdateDate(Timestamp.valueOf(ZonedDateTime.now().toLocalDateTime()));
         giftCertificate.setTimeZone_LastUpdateDate(ZonedDateTime.now().getZone().toString());
 
         UpdateCreator<GiftCertificateDTO> updateCreator = new UpdateCreator<>(giftCertificate, objectMapper);
         Map<String, Object> map = updateCreator.getConvertedMap();
-
         SqlParameterSource parameters = new MapSqlParameterSource().addValues(map);
         String query = updateCreator.getSqlUpdateQuery(new GiftCertificate());
-        namedParameterJdbcTemplate.update(query, parameters, holder);
-        return getGiftCertificateByKeyHolder(holder);
+        namedParameterJdbcTemplate.update(query, parameters);
+
+        return getGiftCertificateById(giftCertificate.getId());
     }
 
     @Override
     public Optional<GiftCertificate> findById(long id) {
+       return getGiftCertificateById(id);
+    }
+
+    @Override
+    public Optional<GiftCertificate> findByName(String name) {
         GiftCertificate certificate = DataAccessUtils.singleResult(
-                jdbcTemplate.query(environment.getProperty(SELECT_CERTIFICATE_BY_ID),
-                        new CertificateRowMapper(), id));
+                jdbcTemplate.query(environment.getProperty(SELECT_CERTIFICATE_BY_NAME),
+                        new CertificateRowMapper(), name));
         return Optional.ofNullable(certificate);
     }
 
@@ -110,12 +115,21 @@ public class GiftCertificateRepositoryImpl implements GiftCertificateRepository 
         return jdbcTemplate.query(environment.getProperty(SELECT_CERTIFICATE), new CertificateRowMapper());
     }
 
+    @Override
+    public List<GiftCertificate> filterCertificate(Map<String, String> filterParam) {
+        SelectFilterCreator query = new SelectFilterCreator();
+        return jdbcTemplate.query(query.createFilterQuery(filterParam), new CertificateRowMapper());
+    }
+
     private Optional<GiftCertificate> getGiftCertificateByKeyHolder(KeyHolder keyHolder) {
         Number id = keyHolder.getKey();
         return id != null ? findById(id.longValue()) : Optional.empty();
     }
 
     private Optional<GiftCertificate> getGiftCertificateById(long id) {
-        return findById(id);
+        GiftCertificate certificate = DataAccessUtils.singleResult(
+                jdbcTemplate.query(environment.getProperty(SELECT_CERTIFICATE_BY_ID),
+                        new CertificateRowMapper(), id));
+        return Optional.ofNullable(certificate);
     }
 }
