@@ -23,10 +23,9 @@ public interface GiftCertificateService {
      * This method is used to delete the certificate by id
      *
      * @param id the id of certificate to be deleted
-     * @return true if certificate was deleted, false if it were not
      * @throws com.epam.esm.exception.EntityNotFoundException if certificate does not exist
      */
-    boolean delete(long id);
+    void delete(long id);
 
     /**
      * This method is used to update the certificate
@@ -35,7 +34,7 @@ public interface GiftCertificateService {
      * @return an Optional with the value of updated certificate
      * @throws com.epam.esm.exception.EntityNotFoundException if certificate does not exist
      */
-    GiftCertificate update(GiftCertificateDTO giftCertificate, long id);
+    GiftCertificate update(GiftCertificate giftCertificate, long id);
 
     /**
      * This method is used to return certificate by id

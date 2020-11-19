@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pagination {
-    private long limit;
-    private long offset;
+    private int limit;
+    private int offset;
 }

@@ -8,9 +8,7 @@ public enum ParamName {
     DESCRIPTION("description"),
     DIRECTION("direction"),
     FIELD("field"),
-    TAG("tags"),
-    LIMIT("limit"),
-    OFFSET("offset");
+    TAG("Tag.name");
 
     private String paramName;
     private final static List<String> possibleDirectionParam = Arrays.asList("asc", "desc");

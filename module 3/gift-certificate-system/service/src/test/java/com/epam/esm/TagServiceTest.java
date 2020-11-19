@@ -51,7 +51,7 @@ public class TagServiceTest {
     @Test
     public void findTagById_whenTagExist_thenReturnTag() {
         long tagId = 1;
-        Mockito.when(tagRepository.findById(tagId)).thenReturn(Optional.of(tag1));
+        Mockito.when(tagRepository.findById(tagId)).thenReturn(tag1);
         Tag expected = tag1;
         Tag actual = tagService.findById(tagId);
         Assertions.assertEquals(expected, actual);
@@ -60,13 +60,13 @@ public class TagServiceTest {
     @Test
     public void findTagById_whenTagNotExisting_thenTagNotFoundException() {
         long tagId = 0;
-        Mockito.when(tagRepository.findById(tagId)).thenReturn(Optional.empty());
+        Mockito.when(tagRepository.findById(tagId)).thenReturn(null);
         Assertions.assertThrows(EntityNotFoundException.class, () -> tagService.findById(tagId));
     }
 
     @Test
     public void createTag_whenCreated_thenReturnTag() {
-        Mockito.when(tagRepository.create(tag1)).thenReturn(Optional.of(tag1));
+        Mockito.when(tagRepository.create(tag1)).thenReturn(tag1);
         Assertions.assertEquals(Optional.of(tag1).get(),tagService.create(tag1));
     }
 }

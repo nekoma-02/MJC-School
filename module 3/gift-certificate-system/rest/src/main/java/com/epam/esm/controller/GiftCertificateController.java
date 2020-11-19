@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/certificate")
+@RequestMapping("/certificates")
 public class GiftCertificateController {
 
     @Autowired
@@ -25,11 +25,11 @@ public class GiftCertificateController {
     private TagService tagService;
 
     @GetMapping
-    public List<GiftCertificate> getGiftCertificate(@RequestParam Map<String,String> filterParam, Pagination pagination) {
-        if (filterParam.isEmpty()) {
-            return certificateService.getAll(pagination);
+    public List<GiftCertificate> getGiftCertificate(@RequestParam Map<String, String> filterParam, Pagination pagination) {
+        if (!filterParam.isEmpty() || filterParam != null) {
+            return certificateService.getFilteredListCertificates(filterParam);
         }
-        return certificateService.getFilteredListCertificates(filterParam);
+        return certificateService.getAll(pagination);
     }
 
     @GetMapping("/{id}")
@@ -51,8 +51,8 @@ public class GiftCertificateController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<GiftCertificate> updateCertificate(@PathVariable long id, @RequestBody GiftCertificateDTO giftCertificate) {
-        GiftCertificate giftCertificate1 =  certificateService.update(giftCertificate,id);
+    public ResponseEntity<GiftCertificate> updateCertificate(@PathVariable long id, @RequestBody GiftCertificate giftCertificate) {
+        GiftCertificate giftCertificate1 = certificateService.update(giftCertificate, id);
         ResponseEntity<GiftCertificate> responseEntity = new ResponseEntity<>(giftCertificate1, HttpStatus.CREATED);
         return responseEntity;
     }

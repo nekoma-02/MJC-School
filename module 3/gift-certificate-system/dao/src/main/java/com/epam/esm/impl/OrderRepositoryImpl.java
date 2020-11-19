@@ -5,6 +5,8 @@ import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Order;
 import com.epam.esm.entity.Pagination;
 import com.epam.esm.mapper.OrderRowMapper;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -17,7 +19,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,48 +38,38 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Override
     public List<Order> findByUserId(long userId, Pagination pagination) {
-        return jdbcTemplate.query(environment.getProperty(SELECT_ALL_ORDERS_BY_USER_ID), new OrderRowMapper(), userId, pagination.getLimit(), pagination.getOffset());
+        return sessionFactory.getCurrentSession().createNativeQuery(environment.getProperty(SELECT_ALL_ORDERS_BY_USER_ID))
+                .setParameter(1, userId)
+                .setFirstResult(pagination.getOffset())
+                .setMaxResults(pagination.getLimit())
+                .list();
     }
 
     @Override
-    public Optional<Order> findByUserId(long userId, long orderId) {
-        Order order = DataAccessUtils.singleResult(jdbcTemplate.query(environment.getProperty(SELECT_USER_ORDER_BY_ID), new OrderRowMapper(), userId, orderId));
-        return Optional.ofNullable(order);
+    public Order findByUserId(long userId, long orderId) {
+        return sessionFactory.getCurrentSession().createNativeQuery(environment.getProperty(SELECT_USER_ORDER_BY_ID), Order.class)
+                .setParameter(1, userId).setParameter(2, orderId).getResultList().stream().findFirst().orElse(null);
     }
 
     @Override
-    public long createOrder(Order order, long userId) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-                connection -> {
-                    PreparedStatement ps = connection.prepareStatement(environment.getProperty(INSERT_ORDER), new String[]{ID});
-                    ps.setLong(1, userId);
-                    ps.setTimestamp(2, Timestamp.valueOf(order.getOrderDate().toLocalDateTime()));
-                    ps.setString(3, order.getOrderDate().getZone().toString());
-                    ps.setBigDecimal(4, order.getCost());
-                    return ps;
-                },
-                keyHolder);
-        Number numberKey = keyHolder.getKey();
-        return numberKey == null ? 0 : numberKey.longValue();
+    public long createOrder(Order order) {
+        return (Long) sessionFactory.getCurrentSession().save(order);
     }
 
     @Override
     public void addCertificateToOrder(List<GiftCertificate> certificateList, long orderId) {
-        jdbcTemplate.batchUpdate(environment.getProperty(INSERT_ORDER_TO_CERTIFICATE), new BatchPreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement ps, int i) throws SQLException {
-                ps.setLong(1, orderId);
-                ps.setLong(2, certificateList.get(i).getId());
-            }
-
-            @Override
-            public int getBatchSize() {
-                return certificateList.size();
-            }
-        });
+        Session session = sessionFactory.getCurrentSession();
+        for (GiftCertificate certificate: certificateList) {
+            session.createNativeQuery(INSERT_ORDER_TO_CERTIFICATE)
+                    .setParameter(1, orderId)
+                    .setParameter(2, certificate.getId())
+                    .executeUpdate();
+        }
     }
 
 }

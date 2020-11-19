@@ -11,5 +11,5 @@ public interface OrderService {
 
     Order findByUserId(long userId, long orderId);
 
-    Order createOrder(OrderDTO orderDTO, long userId);
+    Order createOrder(Order order);
 }

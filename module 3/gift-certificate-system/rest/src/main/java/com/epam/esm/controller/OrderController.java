@@ -15,22 +15,22 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
-    private OrderService service;
+    private OrderService orderService;
 
     @GetMapping("/{userId}")
     public List<Order> getOrderByUser(@PathVariable long userId, Pagination pagination) {
-        return service.findByUserId(userId, pagination);
+        return orderService.findByUserId(userId, pagination);
     }
 
     @GetMapping("/{userId}/order/{orderId}")
     public Order getOrderByUser(@PathVariable long userId, @PathVariable long orderId) {
-        return service.findByUserId(userId, orderId);
+        return orderService.findByUserId(userId, orderId);
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDTO, @PathVariable long userId) {
-        Order order = service.createOrder(orderDTO, userId);
-        ResponseEntity<Order> responseEntity = new ResponseEntity<>(order, HttpStatus.CREATED);
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+        Order createdOrder = orderService.createOrder(order);
+        ResponseEntity<Order> responseEntity = new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
         return responseEntity;
     }
 }

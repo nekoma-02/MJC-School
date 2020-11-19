@@ -8,54 +8,56 @@ import com.epam.esm.exception.EntityExistException;
 import com.epam.esm.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class TagServiceImpl implements TagService {
 
     private static final String NOT_FOUND = "locale.message.TagNotFound";
     private static final String ENTITY_EXIST = "locale.message.TagExist";
+    private static final String DELETED = "deleted";
 
     @Autowired
     private TagRepository tagRepository;
 
     @Override
     public Tag create(Tag tag) {
-        if (tagRepository.findByName(tag.getName()).isPresent()) {
+        if (Objects.nonNull(tagRepository.findByName(tag.getName()))) {
             throw new EntityExistException(ENTITY_EXIST, tag.getName());
         }
-        return tagRepository.create(tag).get();
+        return tagRepository.create(tag);
     }
 
     @Override
-    public boolean delete(String name) {
-        tagRepository.findByName(name);
-        return tagRepository.delete(name);
+    @Transactional
+    public String delete(long id) {
+        tagRepository.delete(id);
+        return DELETED;
     }
 
     @Override
     public Tag findById(long id) {
-        Optional<Tag> tag = tagRepository.findById(id);
-        if (!tag.isPresent()) {
+        Tag tag = tagRepository.findById(id);
+        if (Objects.isNull(tag)) {
             throw new EntityNotFoundException(NOT_FOUND,id);
         }
-        return tag.get();
+        return tag;
     }
 
     @Override
     public Tag findByName(String name) {
-        Optional<Tag> tag = tagRepository.findByName(name);
-        if (!tag.isPresent()) {
+        Tag tag = tagRepository.findByName(name);
+        if (Objects.isNull(tag)) {
             throw new EntityNotFoundException(NOT_FOUND);
         }
-        return tag.get();
+        return tag;
     }
 
     @Override
     public List<Tag> getAll(Pagination pagination) {
         return tagRepository.getAll(pagination);
     }
-
-
 }

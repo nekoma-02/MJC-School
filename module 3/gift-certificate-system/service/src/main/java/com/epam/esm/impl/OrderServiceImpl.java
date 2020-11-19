@@ -17,19 +17,20 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     private static final String NOT_FOUND = "locale.message.OrderNotFound";
     private static final String CERTIFICATE_NOT_FOUND = "locale.message.CertificateNotFound";
     @Autowired
-    private OrderRepository repo;
+    private OrderRepository orderRepository;
     @Autowired
     private GiftCertificateRepository certificateRepo;
 
     @Override
     public List<Order> findByUserId(long userId, Pagination pagination) {
-        List<Order> orderList = repo.findByUserId(userId, pagination);
+        List<Order> orderList = orderRepository.findByUserId(userId, pagination);
         if (orderList == null || orderList.isEmpty()) {
             throw new EntityNotFoundException(NOT_FOUND, userId);
         }
@@ -38,22 +39,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order findByUserId(long userId, long orderId) {
-        return repo.findByUserId(userId, orderId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND, userId));
+        Order order = orderRepository.findByUserId(userId, orderId);
+        if (Objects.isNull(order)) {
+            throw new  EntityNotFoundException(NOT_FOUND, userId);
+        }
+        return order;
     }
 
     @Override
     @Transactional
-    public Order createOrder(OrderDTO orderDTO, long userId) {
-        ModelMapper modelMapper = new ModelMapper();
-        orderDTO.setOrderDate(ZonedDateTime.now());
-        Order order = modelMapper.map(orderDTO, Order.class);
-        List<GiftCertificate> certificateList = new ArrayList<>();
-        orderDTO.getCertificateList().forEach(e -> certificateList.add(
-                certificateRepo.findById(e.getId()).orElseThrow(() -> new EntityNotFoundException(CERTIFICATE_NOT_FOUND,e.getId()))));
-        order.setCost(orderPrice(certificateList));
-        long orderId = repo.createOrder(order, userId);
-        repo.addCertificateToOrder(certificateList,orderId);
-        return repo.findByUserId(userId,orderId).orElseThrow(() -> new EntityNotFoundException(NOT_FOUND, userId));
+    public Order createOrder(Order order) {
+        long id = orderRepository.createOrder(order);
+        orderRepository.addCertificateToOrder(order.getCertificateList(),id);
+        return order;
     }
 
     private BigDecimal orderPrice(List<GiftCertificate> certificateList) {
