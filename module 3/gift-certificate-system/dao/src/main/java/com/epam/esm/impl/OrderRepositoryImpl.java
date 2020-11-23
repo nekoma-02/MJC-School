@@ -4,23 +4,14 @@ import com.epam.esm.OrderRepository;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Order;
 import com.epam.esm.entity.Pagination;
-import com.epam.esm.mapper.OrderRowMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @PropertySource("classpath:sql_query_order.properties")
@@ -31,9 +22,6 @@ public class OrderRepositoryImpl implements OrderRepository {
     private static final String INSERT_ORDER = "INSERT_ORDER";
     private static final String SELECT_ALL_ORDERS_BY_USER_ID = "SELECT_ALL_ORDERS_BY_USER_ID";
     private static final String SELECT_USER_ORDER_BY_ID = "SELECT_USER_ORDER_BY_ID";
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private Environment environment;

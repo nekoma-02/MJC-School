@@ -1,5 +1,6 @@
 package com.epam.esm;
 
+import com.epam.esm.config.SpringConfig;
 import com.epam.esm.entity.Pagination;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.exception.EntityNotFoundException;
@@ -13,6 +14,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -20,23 +24,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@ExtendWith(MockitoExtension.class)
-@SpringJUnitConfig(TestConfig.class)
-@WebAppConfiguration
+@SpringJUnitConfig(SpringConfig.class)
+@SpringBootTest
+@EnableConfigurationProperties
+@ActiveProfiles("test")
 public class TagServiceTest {
     private List<Tag> tagList;
     private Tag tag1;
     private Tag tag2;
+    private Pagination pagination;
 
     @Mock
     private TagRepository tagRepository;
 
-    @Autowired
     @InjectMocks
-    private TagServiceImpl tagService;
+    private TagService tagService = new TagServiceImpl();
 
     @BeforeEach
     public void setUp() {
+        pagination = new Pagination(5, 0);
         tag1 = new Tag(1, "tag1");
         tag2 = new Tag(2, "tag2");
         tagList = Arrays.asList(tag1, tag2);
@@ -44,8 +50,8 @@ public class TagServiceTest {
 
     @Test
     public void getAllTags() {
-        Mockito.when(tagRepository.getAll(new Pagination(5,0))).thenReturn(tagList);
-        Assertions.assertIterableEquals(tagList, tagService.getAll(new Pagination(5,0)));
+        Mockito.when(tagRepository.getAll(pagination)).thenReturn(tagList);
+        Assertions.assertIterableEquals(tagList, tagService.getAll(pagination));
     }
 
     @Test

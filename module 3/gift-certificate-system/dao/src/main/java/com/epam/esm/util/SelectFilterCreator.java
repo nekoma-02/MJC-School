@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SelectFilterCreator {
-    private static final String SELECT_FILTER = "select * from GiftCertificate";
-    private static final String HAVING = " having ";
+    private static final String SELECT_FILTER = "SELECT id, Name, Description, Price, CREATEDATE, TimeZone_CreateDate, LastUpdateDate, TimeZone_LastUpdateDate, Duration FROM (SELECT GiftCertificate.id,GiftCertificate.Name,GiftCertificate.Description,Price,CREATEDATE,TimeZone_CreateDate,LastUpdateDate,TimeZone_LastUpdateDate,Duration,group_concat(Tag.id , ' ' ,Tag.Name) as tag FROM Tag_has_GiftCertificate RIGHT JOIN GiftCertificate ON Tag_has_GiftCertificate.GiftCertificate_id = GiftCertificate.id LEFT JOIN Tag ON Tag_has_GiftCertificate.Tag_id = Tag.id GROUP BY GiftCertificate.id) t";
+    private static final String WHERE = " where ";
     private static final String AND = " and ";
     private static final String END_OF_LIKE = "%' ";
     private static final String LIKE = " like '%";
@@ -22,7 +22,7 @@ public class SelectFilterCreator {
         String searchQuery = searchingParams(filterParam);
         String sortQuery = sortingParams(filterParam);
         if (!searchQuery.trim().isEmpty()) {
-            sb.append(HAVING).append(searchQuery);
+            sb.append(WHERE).append(searchQuery);
             sb.delete(sb.length() - AND.length(), sb.length());
         }
         sb.append(sortQuery);

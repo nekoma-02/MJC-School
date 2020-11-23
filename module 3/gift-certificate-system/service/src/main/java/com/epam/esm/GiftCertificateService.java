@@ -1,7 +1,6 @@
 package com.epam.esm;
 
 import com.epam.esm.entity.GiftCertificate;
-import com.epam.esm.dto.GiftCertificateDTO;
 import com.epam.esm.entity.Pagination;
 import com.epam.esm.entity.Tag;
 import java.util.List;

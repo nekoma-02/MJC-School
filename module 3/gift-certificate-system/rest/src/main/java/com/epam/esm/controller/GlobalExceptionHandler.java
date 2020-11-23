@@ -38,8 +38,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityExistException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
-    public Error handleNotFound(EntityExistException e, Locale locale) {
+    public Error handleConflict(EntityExistException e, Locale locale) {
         return new Error(e.getId(), messageSource.getMessage(e.getMessage(), null, locale));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Error handleIllegalArgument(IllegalArgumentException e, Locale locale) {
+        return new Error(40000, messageSource.getMessage(e.getMessage(), null, locale));
     }
 
     @Override

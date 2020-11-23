@@ -1,7 +1,6 @@
 package com.epam.esm.controller;
 
 import com.epam.esm.OrderService;
-import com.epam.esm.dto.OrderDTO;
 import com.epam.esm.entity.Order;
 import com.epam.esm.entity.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;

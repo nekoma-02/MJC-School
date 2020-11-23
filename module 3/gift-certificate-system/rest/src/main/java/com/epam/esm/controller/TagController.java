@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.afford;
 
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +20,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tags")
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL_FORMS)
 public class TagController {
-    private static final String DELETE_LINK = "delete";
-    public static final String FIND_LINK = "find";
     @Autowired
     private TagService tagService;
 
@@ -31,20 +33,21 @@ public class TagController {
     }
 
     @GetMapping("/{id}")
-    public Tag getTagById(@PathVariable long id) {
+    public EntityModel<Tag> getTagById(@PathVariable long id) {
         Tag tag = tagService.findById(id);
-        tag.add(linkTo(methodOn(TagController.class).getTagById(id)).withSelfRel());
-        tag.add(linkTo(methodOn(TagController.class).deleteTag(tag.getId())).withRel(DELETE_LINK));
-        return tag;
+        return EntityModel.of(tag, linkTo(methodOn(TagController.class)
+                .getTagById(id)).withSelfRel()
+                .andAffordance(afford(methodOn(TagController.class).deleteTag(id))));
     }
 
     @PostMapping
-    public ResponseEntity<Tag> createTag(@RequestBody Tag tag) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public EntityModel<Tag> createTag(@RequestBody Tag tag) {
         Tag createdTag = tagService.create(tag);
-        tag.add(linkTo(methodOn(TagController.class).createTag(createdTag)).withSelfRel());
-        tag.add(linkTo(methodOn(TagController.class).getTagById(createdTag.getId())).withRel(FIND_LINK));
-        ResponseEntity<Tag> responseEntity = new ResponseEntity<>(createdTag, HttpStatus.CREATED);
-        return responseEntity;
+        return EntityModel.of(createdTag, linkTo(methodOn(TagController.class)
+                .createTag(tag)).withSelfRel()
+                .andAffordance(afford(methodOn(TagController.class).deleteTag(createdTag.getId())))
+                .andAffordance(afford(methodOn(TagController.class).getTagById(createdTag.getId()))));
     }
 
     @DeleteMapping("/{id}")
