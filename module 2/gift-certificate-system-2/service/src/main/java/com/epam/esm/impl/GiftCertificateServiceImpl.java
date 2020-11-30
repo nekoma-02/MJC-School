@@ -57,7 +57,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
                 .stream()
                 .filter(c -> c.getTagList()
                         .stream()
-                        .anyMatch(t -> t.getName().equals(tagName)))
+                        .anyMatch(t -> t.getName().contains(tagName)))
                 .collect(Collectors.toList());
     }
 
