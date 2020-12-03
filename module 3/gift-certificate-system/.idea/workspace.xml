@@ -23,26 +23,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dce19a98-434f-40a6-be40-c9c6877074fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/GiftCertificateRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/GiftCertificateRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/OrderRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/OrderRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/TagRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/TagRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/UserRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/util/SelectFilterCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/util/SelectFilterCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/src/main/resources/sql_query_certificate.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/resources/sql_query_certificate.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/config/SpringConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/GiftCertificate.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/GiftCertificate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Pagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Pagination.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Tag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/GiftCertificateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/GiftCertificateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/GiftCertificateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/GiftCertificateServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/TagServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/TagServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ui/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_4_200.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_dom4j_dom4j_2_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_0_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_22_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_1_6_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_24_0_GA.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_1_3_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_1_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_3_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_3_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_3_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_3_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_10_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_10_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/dao.iml" beforeDir="false" afterPath="$PROJECT_DIR$/dao/dao.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gift-certificate-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gift-certificate-system.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/model.iml" beforeDir="false" afterPath="$PROJECT_DIR$/model/model.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rest/rest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/rest/rest.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ui/ui.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,17 +101,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.GiftCertificateSystemApplication">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GiftCertificateRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="dao" />
       <extension name="coverage">
@@ -196,6 +196,7 @@
       <workItem from="1606230436802" duration="5905000" />
       <workItem from="1606378575890" duration="8969000" />
       <workItem from="1606663271998" duration="41376000" />
+      <workItem from="1607036898215" duration="211000" />
     </task>
     <servers />
   </component>
