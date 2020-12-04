@@ -1,7 +1,6 @@
 package com.epam.esm;
 
 import com.epam.esm.entity.GiftCertificate;
-import com.epam.esm.dto.GiftCertificateDTO;
 import com.epam.esm.entity.Pagination;
 import com.epam.esm.entity.Tag;
 import java.util.List;
@@ -23,10 +22,9 @@ public interface GiftCertificateService {
      * This method is used to delete the certificate by id
      *
      * @param id the id of certificate to be deleted
-     * @return true if certificate was deleted, false if it were not
      * @throws com.epam.esm.exception.EntityNotFoundException if certificate does not exist
      */
-    boolean delete(long id);
+    void delete(long id);
 
     /**
      * This method is used to update the certificate
@@ -35,7 +33,7 @@ public interface GiftCertificateService {
      * @return an Optional with the value of updated certificate
      * @throws com.epam.esm.exception.EntityNotFoundException if certificate does not exist
      */
-    GiftCertificate update(GiftCertificateDTO giftCertificate, long id);
+    GiftCertificate update(GiftCertificate giftCertificate, long id);
 
     /**
      * This method is used to return certificate by id
@@ -74,5 +72,5 @@ public interface GiftCertificateService {
      * @return List of sorted certificates, or unsorted List if received sort
      * does not exist(or null) or received certificates is null
      */
-    List<GiftCertificate> getFilteredListCertificates(Map<String,String> filterParam);
+    List<GiftCertificate> getFilteredListCertificates(Map<String,String> filterParam, Pagination pagination);
 }

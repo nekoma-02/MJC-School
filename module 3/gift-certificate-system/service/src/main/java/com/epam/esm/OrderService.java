@@ -1,6 +1,5 @@
 package com.epam.esm;
 
-import com.epam.esm.dto.OrderDTO;
 import com.epam.esm.entity.Order;
 import com.epam.esm.entity.Pagination;
 
@@ -11,5 +10,5 @@ public interface OrderService {
 
     Order findByUserId(long userId, long orderId);
 
-    Order createOrder(OrderDTO orderDTO, long userId);
+    Order createOrder(Order order);
 }

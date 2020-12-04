@@ -10,27 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private static final String NOT_FOUND = "locale.message.UserNotFound";
 
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepository;
 
     @Override
     public User findById(long id) {
-        Optional<User> tag = repo.findById(id);
-        if (!tag.isPresent()) {
+        User user = userRepository.findById(id);
+        if (Objects.isNull(user)) {
             throw new EntityNotFoundException(NOT_FOUND,id);
         }
-        return tag.get();
+        return user;
     }
 
     @Override
     public List<User> getAll(Pagination pagination) {
-        return repo.getAll(pagination);
+        return userRepository.getAll(pagination);
     }
 }

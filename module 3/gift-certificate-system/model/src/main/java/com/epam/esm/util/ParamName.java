@@ -8,13 +8,11 @@ public enum ParamName {
     DESCRIPTION("description"),
     DIRECTION("direction"),
     FIELD("field"),
-    TAG("tags"),
-    LIMIT("limit"),
-    OFFSET("offset");
+    TAG("tag");
 
     private String paramName;
     private final static List<String> possibleDirectionParam = Arrays.asList("asc", "desc");
-    private final static List<String> possibleFieldParam = Arrays.asList("gif_name", "CreateDate");
+    private final static List<String> possibleFieldParam = Arrays.asList("name", "createdate");
 
     public static List<String> getPossibleFieldParam() {
         return possibleFieldParam;

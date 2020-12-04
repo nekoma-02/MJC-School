@@ -23,7 +23,7 @@ public interface TagService {
      * @return true if tag was deleted, false if it were not
      * @throws com.epam.esm.exception.EntityNotFoundException if tag does not exist
      */
-    boolean delete(String name);
+    String delete(long id);
 
     /**
      * This method is used to return tag by id

@@ -18,54 +18,45 @@
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:pb" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dce19a98-434f-40a6-be40-c9c6877074fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_4_200.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_11.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_dom4j_dom4j_2_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_0_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_22_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_1_6_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_24_0_GA.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_1_3_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_1_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_3_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_3_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_3_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_3_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_10_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_10_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/dao.iml" beforeDir="false" afterPath="$PROJECT_DIR$/dao/dao.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gift-certificate-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gift-certificate-system.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model.iml" beforeDir="false" afterPath="$PROJECT_DIR$/model/model.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rest/rest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/rest/rest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/service/service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ui/ui.iml" afterDir="false" />
+    <list default="true" id="89d24049-db99-41c7-92ce-af2b7c9f8047" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/GiftCertificateRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/GiftCertificateRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/OrderRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/OrderRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/TagRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/TagRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/util/SelectFilterCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/java/com/epam/esm/util/SelectFilterCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/src/main/resources/sql_query_certificate.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dao/src/main/resources/sql_query_certificate.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/config/SpringConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/GiftCertificate.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/GiftCertificate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Pagination.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Pagination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/Tag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/com/epam/esm/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/GiftCertificateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/GiftCertificateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/TagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rest/src/main/java/com/epam/esm/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/GiftCertificateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/GiftCertificateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/TagServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/TagServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/epam/esm/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ui/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -73,89 +64,29 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="C:\Users\Serenity\.m2\wrapper\dists\apache-maven-3.6.3-bin\1iopthnavndlasol9gbrbg6bf2\apache-maven-3.6.3" />
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3" />
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="1kPlJyBnmYlVQrm8CFWOBU4Qr7T" />
+  <component name="ProjectId" id="1lAXANf6jQFwTp5RxAhZWfisy8u" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.epam.esm.audit.entity" />
-      <recent name="com.epam.esm.audit.listener" />
-      <recent name="com.epam.esm" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Spring Boot.GiftCertificateSystemApplication">
-    <configuration name="GiftCertificateRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="dao" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.epam.esm.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.epam.esm" />
-      <option name="MAIN_CLASS_NAME" value="com.epam.esm.GiftCertificateRepositoryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GiftCertificateServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.epam.esm.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.epam.esm" />
-      <option name="MAIN_CLASS_NAME" value="com.epam.esm.GiftCertificateServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TagServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.epam.esm.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.epam.esm" />
-      <option name="MAIN_CLASS_NAME" value="com.epam.esm.TagServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.epam.esm.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.epam.esm" />
-      <option name="MAIN_CLASS_NAME" value="com.epam.esm.UserServiceTest" />
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -168,35 +99,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.GiftCertificateRepositoryTest" />
-        <item itemvalue="JUnit.TagServiceTest" />
-        <item itemvalue="JUnit.GiftCertificateServiceTest" />
-        <item itemvalue="JUnit.UserServiceTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="dce19a98-434f-40a6-be40-c9c6877074fa" name="Default Changelist" comment="" />
-      <created>1605610103922</created>
+      <changelist id="89d24049-db99-41c7-92ce-af2b7c9f8047" name="Default Changelist" comment="" />
+      <created>1607040727640</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1605610103922</updated>
-      <workItem from="1605610147340" duration="3532000" />
-      <workItem from="1605682869169" duration="14115000" />
-      <workItem from="1605765261636" duration="21534000" />
-      <workItem from="1605857023218" duration="9000000" />
-      <workItem from="1606054947283" duration="4505000" />
-      <workItem from="1606114220316" duration="2098000" />
-      <workItem from="1606117758555" duration="7522000" />
-      <workItem from="1606129074756" duration="3473000" />
-      <workItem from="1606230436802" duration="5905000" />
-      <workItem from="1606378575890" duration="8969000" />
-      <workItem from="1606663271998" duration="41376000" />
-      <workItem from="1607036898215" duration="211000" />
+      <updated>1607040727640</updated>
+      <workItem from="1607040734068" duration="1119000" />
     </task>
     <servers />
   </component>
@@ -213,60 +125,11 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="765" y="231" key="#com.intellij.ide.util.MemberChooser" timestamp="1605771280802">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="765" y="231" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1605771280802" />
-    <state x="690" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606121999333">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="690" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1606121999333" />
-    <state x="463" y="124" key="FileChooserDialogImpl" timestamp="1606129300540">
+    <state x="137" y="24" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607040802054">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="124" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1606129300540" />
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1606127740554" />
-    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1606127740554" />
-    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1606127740554" />
-    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1606127740554" />
-    <state width="1323" height="182" key="GridCell.Tab.1.bottom" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1605812001097" />
-    <state width="1323" height="182" key="GridCell.Tab.1.center" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1605812001097" />
-    <state width="1323" height="182" key="GridCell.Tab.1.left" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1605812001097" />
-    <state width="1323" height="182" key="GridCell.Tab.1.right" timestamp="1607035516644">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state width="1323" height="182" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1607035516644" />
-    <state width="1860" height="282" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1605812001097" />
+    <state x="137" y="24" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1607040802054" />
   </component>
 </project>
