@@ -52,9 +52,9 @@ public class TagController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTag(@PathVariable long id) {
-        String message = tagService.delete(id);
-        return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteTag(@PathVariable long id) {
+        tagService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -3,8 +3,11 @@ package com.epam.esm.controller;
 import com.epam.esm.UserService;
 import com.epam.esm.entity.Pagination;
 import com.epam.esm.entity.User;
+import com.epam.esm.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,10 @@ public class UserController {
 
     @Autowired
     private UserService service;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenProvider tokenProvider;
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable long id) {

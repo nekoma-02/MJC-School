@@ -7,6 +7,7 @@ import com.epam.esm.entity.Tag;
 import com.epam.esm.entity.User;
 import com.epam.esm.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public User findById(long id) {
@@ -32,5 +35,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll(Pagination pagination) {
         return userRepository.getAll(pagination);
+    }
+
+    @Override
+    public User findByLogin(String login) {
+        User user = userRepository.findByLogin(login);
+        if (Objects.isNull(user)) {
+            throw new EntityNotFoundException(NOT_FOUND,0);
+        }
+        return user;
+    }
+
+    @Override
+    public User create(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.create(user);
     }
 }

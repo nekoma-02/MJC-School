@@ -72,7 +72,7 @@ public class GiftCertificateController {
     }
 
     @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public EntityModel<GiftCertificate> updateCertificate(@PathVariable long id, @RequestBody GiftCertificate giftCertificate) {
         GiftCertificate updatedCertificate = certificateService.update(giftCertificate, id);
         return EntityModel.of(updatedCertificate, linkTo(methodOn(GiftCertificateController.class)

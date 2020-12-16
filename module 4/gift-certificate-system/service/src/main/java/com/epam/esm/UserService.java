@@ -9,4 +9,8 @@ public interface UserService {
     User findById(long id);
 
     List<User> getAll(Pagination pagination);
+
+    User findByLogin(String login);
+
+    User create(User user);
 }

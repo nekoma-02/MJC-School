@@ -41,8 +41,8 @@ public class UserServiceTest {
     @BeforeEach
     public void setUp() {
         pagination = new Pagination(5, 0);
-        user1 = new User(1, "Alex");
-        user2 = new User(2, "Fedya");
+        //user1 = new User(1, "Alex");
+        //user2 = new User(2, "Fedya");
         userList = Arrays.asList(user1, user2);
     }
 
