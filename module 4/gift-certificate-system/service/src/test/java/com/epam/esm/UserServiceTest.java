@@ -1,6 +1,7 @@
 package com.epam.esm;
 
 import com.epam.esm.config.SpringConfig;
+import com.epam.esm.dto.UserDto;
 import com.epam.esm.entity.Pagination;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.entity.User;
@@ -41,8 +42,8 @@ public class UserServiceTest {
     @BeforeEach
     public void setUp() {
         pagination = new Pagination(5, 0);
-        user1 = new User(1, "Alex");
-        user2 = new User(2, "Fedya");
+        //user1 = new User(1, "Alex");
+        //user2 = new User(2, "Fedya");
         userList = Arrays.asList(user1, user2);
     }
 
@@ -57,7 +58,7 @@ public class UserServiceTest {
         long tagId = 1;
         Mockito.when(userRepository.findById(tagId)).thenReturn(user1);
         User expected = user1;
-        User actual = userService.findById(tagId);
+        UserDto actual = userService.findById(tagId);
         Assertions.assertEquals(expected, actual);
     }
 

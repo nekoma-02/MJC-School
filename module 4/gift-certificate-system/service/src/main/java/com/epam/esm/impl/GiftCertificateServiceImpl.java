@@ -2,6 +2,7 @@ package com.epam.esm.impl;
 
 import com.epam.esm.GiftCertificateRepository;
 import com.epam.esm.GiftCertificateService;
+import com.epam.esm.TagService;
 import com.epam.esm.util.FilterParamUtil;
 import com.epam.esm.util.UpdatedCertificate;
 import com.epam.esm.entity.Pagination;
@@ -26,7 +27,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Autowired
     private GiftCertificateRepository certificateRepository;
     @Autowired
-    private TagRepositoryImpl tagRepository;
+    private TagService tagService;
     @Autowired
     private UpdatedCertificate updatedCertificate;
     @Autowired
@@ -86,11 +87,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         if (Objects.isNull(giftCertificate)) {
             throw new EntityNotFoundException(NOT_FOUND, id);
         }
-        tagList.forEach(tag -> {
-            if (Objects.isNull(tagRepository.findById(tag.getId()))) {
-                throw new EntityNotFoundException(TAG_NOT_FOUND, tag.getId());
-            }
-        });
+        tagList.forEach(tag -> tagService.findById(tag.getId()));
         List<Tag> actualTags = new ArrayList<>(giftCertificate.getTagSet());
         actualTags.addAll(tagList);
         actualTags.stream().distinct().collect(Collectors.toList());

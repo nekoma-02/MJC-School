@@ -3,6 +3,7 @@ package com.epam.esm.controller;
 import com.epam.esm.entity.Error;
 import com.epam.esm.exception.EntityExistException;
 import com.epam.esm.exception.EntityNotFoundException;
+import com.epam.esm.security.jwt.JwtAuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
@@ -24,7 +25,6 @@ import java.util.Locale;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static final String SEPARATOR = ": ";
-
     @Autowired
     private MessageSource messageSource;
 
@@ -33,6 +33,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseBody
     public Error handleNotFound(EntityNotFoundException e, Locale locale) {
         return new Error(e.getId(), messageSource.getMessage(e.getMessage(), null, locale));
+    }
+
+    @ExceptionHandler(JwtAuthenticationException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public Error handleTokenExpired(JwtAuthenticationException e, Locale locale) {
+        return new Error(4312, messageSource.getMessage(e.getMessage(), null, locale));
     }
 
     @ExceptionHandler(EntityExistException.class)

@@ -2,14 +2,9 @@ package com.epam.esm.audit.listener;
 
 import com.epam.esm.audit.AuditAction;
 import com.epam.esm.audit.entity.GiftCertificateHistory;
-import com.epam.esm.audit.entity.OrderHistory;
 import com.epam.esm.entity.GiftCertificate;
-import com.epam.esm.entity.Order;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 
 public class GiftCertificateListener {
     @PersistenceContext

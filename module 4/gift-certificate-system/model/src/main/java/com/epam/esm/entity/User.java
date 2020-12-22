@@ -22,4 +22,10 @@ public class User extends RepresentationModel<User> {
     @Column
     @NotBlank
     private String name;
+    private String login;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
+    private Role role;
+
 }

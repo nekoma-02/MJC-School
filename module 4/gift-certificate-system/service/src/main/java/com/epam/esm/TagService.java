@@ -20,10 +20,9 @@ public interface TagService {
      * This method is used to delete the tag by name
      *
      * @param name the name of tag to be deleted
-     * @return true if tag was deleted, false if it were not
      * @throws com.epam.esm.exception.EntityNotFoundException if tag does not exist
      */
-    String delete(long id);
+    void delete(long id);
 
     /**
      * This method is used to return tag by id

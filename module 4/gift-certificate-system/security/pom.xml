@@ -9,14 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>rest</artifactId>
-
+    <artifactId>security</artifactId>
     <dependencies>
-        <dependency>
-            <groupId>com.epam.esm</groupId>
-            <artifactId>service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>com.epam.esm</groupId>
             <artifactId>model</artifactId>
@@ -24,10 +18,18 @@
         </dependency>
         <dependency>
             <groupId>com.epam.esm</groupId>
-            <artifactId>security</artifactId>
+            <artifactId>service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
