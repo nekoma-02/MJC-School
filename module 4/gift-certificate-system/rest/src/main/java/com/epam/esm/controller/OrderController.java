@@ -12,25 +12,24 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders")
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/users/{userId}/orders")
     public List<Order> getOrderByUser(@PathVariable long userId, @Valid Pagination pagination) {
         List<Order> orderList = orderService.findByUserId(userId, pagination);
         return orderList;
     }
 
-    @GetMapping("/{userId}/order/{orderId}")
+    @GetMapping("/users/{userId}/order/{orderId}")
     public Order getOrderByUser(@PathVariable long userId, @PathVariable long orderId) {
         return orderService.findByUserId(userId, orderId);
     }
 
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody @Valid Order order) {
-        Order createdOrder = orderService.createOrder(order);
+    @PostMapping("/users/{userId}/orders")
+    public ResponseEntity<Order> createOrder(@RequestBody @Valid Order order, @PathVariable long userId) {
+        Order createdOrder = orderService.createOrder(order, userId);
         ResponseEntity<Order> responseEntity = new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
         return responseEntity;
     }

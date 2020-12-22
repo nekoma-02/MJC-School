@@ -28,6 +28,12 @@ public class UserListener {
     }
 
     private void insertIntoAuditTable(AuditAction action, User user){
-        entityManager.persist(new UserHistory(0, user.getId(), user.getName(), action));
+        entityManager.persist(new UserHistory(0,
+                user.getId(),
+                user.getName(),
+                action,
+                user.getLogin(),
+                user.getPassword(),
+                user.getRole()));
     }
 }

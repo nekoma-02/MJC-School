@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-//@EntityListeners(UserListener.class)
+@EntityListeners(UserListener.class)
 @Table(name = "User")
 public class User extends RepresentationModel<User> {
     @Id

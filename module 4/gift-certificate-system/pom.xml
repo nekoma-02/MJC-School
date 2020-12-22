@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>ui</module>
+        <module>main</module>
         <module>service</module>
         <module>rest</module>
         <module>dao</module>

@@ -1,9 +1,9 @@
 package com.epam.esm.impl;
 
-import com.epam.esm.GiftCertificateRepository;
+import com.epam.esm.GiftCertificateService;
 import com.epam.esm.OrderRepository;
 import com.epam.esm.OrderService;
-import com.epam.esm.UserRepository;
+import com.epam.esm.UserService;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.entity.Order;
 import com.epam.esm.entity.Pagination;
@@ -20,14 +20,12 @@ import java.util.Objects;
 @Service
 public class OrderServiceImpl implements OrderService {
     private static final String NOT_FOUND = "locale.message.OrderNotFound";
-    private static final String CERTIFICATE_NOT_FOUND = "locale.message.CertificateNotFound";
-    private static final String USER_NOT_FOUND = "locale.message.UserNotFound";
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
-    private GiftCertificateRepository certificateRepository;
+    private GiftCertificateService certificateService;
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
     public List<Order> findByUserId(long userId, Pagination pagination) {
@@ -49,12 +47,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order createOrder(Order order) {
+    public Order createOrder(Order order, long userId) {
+        userService.findById(userId);
         order.getCertificateList().stream().forEach(o ->
-                o.setPrice(getCertificateById(o.getId()).getPrice()));
-        long userId = order.getUserId();
-        isUserExist(userId);
+                o.setPrice(certificateService.findById(o.getId()).getPrice()));
         ZonedDateTime dateTime = ZonedDateTime.now();
+        order.setUserId(userId);
         order.setOrderDate(dateTime.toLocalDateTime());
         order.setOrderDateTimeZone(dateTime.getZone());
         order.setCost(orderPrice(order.getCertificateList()));
@@ -64,20 +62,5 @@ public class OrderServiceImpl implements OrderService {
 
     private BigDecimal orderPrice(List<GiftCertificate> certificateList) {
         return certificateList.stream().map(GiftCertificate::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    private GiftCertificate getCertificateById(long id) {
-        GiftCertificate certificate = certificateRepository.findById(id);
-        if (Objects.isNull(certificate)) {
-            throw new EntityNotFoundException(CERTIFICATE_NOT_FOUND, id);
-        }
-        return certificate;
-    }
-
-    private boolean isUserExist(long id) {
-        if (Objects.isNull(userRepository.findById(id))) {
-            throw new EntityNotFoundException(USER_NOT_FOUND, id);
-        }
-        return true;
     }
 }

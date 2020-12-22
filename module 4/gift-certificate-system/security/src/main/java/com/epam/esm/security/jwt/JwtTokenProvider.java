@@ -2,6 +2,7 @@ package com.epam.esm.security.jwt;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,13 +19,15 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
+    private static final String HEADER_AUTHORIZATION = "Authorization";
+    private static final String BEARER_TOKEN_START = "Bearer_";
+    private static final String TOKEN_EXPIRED = "locale.message.tokenExpired";
     @Value("${jwt.token.secret}")
     private String secret;
-
     @Value("${jwt.token.expired}")
     private long validityInMilliseconds;
-
     @Autowired
+    @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
     @Bean
@@ -40,10 +43,8 @@ public class JwtTokenProvider {
 
     public String createToken(String username) {
         Claims claims = Jwts.claims().setSubject(username);
-
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
@@ -62,8 +63,8 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
+        String bearerToken = req.getHeader(HEADER_AUTHORIZATION);
+        if (bearerToken != null && bearerToken.startsWith(BEARER_TOKEN_START)) {
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
@@ -77,8 +78,7 @@ public class JwtTokenProvider {
             }
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            //refactor
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            throw new JwtAuthenticationException(TOKEN_EXPIRED);
         }
     }
 

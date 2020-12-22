@@ -9,18 +9,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("jwtUserDetailsService")
 public class JwtUserDetailsService implements UserDetailsService {
+    private static final String EXCEPTION_KEY = "exception.auth.not_authorized";
     @Autowired
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userService.findByLogin(s);
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userService.findByLogin(username);
         if (user == null) {
-            //refactor
-            throw new UsernameNotFoundException("User with username: " + s + " not found");
+            throw new UsernameNotFoundException(EXCEPTION_KEY);
         }
         JwtUser jwtUser = JwtUserFactory.create(user);
         return jwtUser;

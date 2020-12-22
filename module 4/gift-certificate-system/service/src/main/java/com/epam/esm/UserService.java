@@ -1,16 +1,17 @@
 package com.epam.esm;
 
+import com.epam.esm.dto.UserDto;
 import com.epam.esm.entity.Pagination;
 import com.epam.esm.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    User findById(long id);
+    UserDto findById(long id);
 
-    List<User> getAll(Pagination pagination);
+    List<UserDto> getAll(Pagination pagination);
 
     User findByLogin(String login);
 
-    User create(User user);
+    UserDto create(User user);
 }
